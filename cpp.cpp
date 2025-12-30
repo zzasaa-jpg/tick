@@ -129,7 +129,7 @@ void Program_Entry(){
 	int bool_value = Read_File("bool.txt");
 	//----------------------------------------------------------
 
-	//Time pointer intialation----------------------------------
+	//Time pointer initialization-------------------------------
 	time_t now = time(0);
 	tm *ltm = localtime(&now);
 	//----------------------------------------------------------
