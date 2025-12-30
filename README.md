@@ -53,3 +53,11 @@ All files are auto-created if missing.
 ### ▶ Start / Stop Timer
 ```bash
 cpp.exe
+```
+
+---
+
+## 🔧 Add Tool to System PATH
+
+You can make this tool available globally from any terminal by adding the compiled executable to your system PATH.
+
