@@ -6,8 +6,4 @@
 *.exe
 
 # Runtime generated files
-t1.txt
-t2.txt
-tt.txt
-bool.txt
-format_time.txt
+*.txt
