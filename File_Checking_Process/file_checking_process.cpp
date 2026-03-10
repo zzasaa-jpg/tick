@@ -2,22 +2,25 @@
 #include "../All_file_names/All_file_names.hpp"
 #include "../Program_boot/program_boot.hpp"
 #include "../File_Operations/file_operations.hpp"
+#include "../Utility/RCFV_Utility/RCFV_Utility.hpp"
+#include "../Utility/DEFAULT_PATH_UTILITY/DEFAULT_PATH.hpp"
 
 #include <vector>
 #include <utility>
 #include <string>
+#include <filesystem>
 
 File_checking_process_class file_check_prcs;
 File_checking_process_class::File_checking_process_class(){};
 
 //Checking the files exists or no!----------------------------------
-std::pair<int, std::vector<std::string>> Checking_file_exists() {
+std::pair<int, std::vector<std::string>> Checking_file_exists(std::string& default_path) {
 	std::vector<std::string> File_Names_ = AFNs_class.get_all_file_names();
 	std::vector<std::string> Missing_Files_;
     	bool all_exist = true;
 
 	for (const auto& i : File_Names_) {
-		std::ifstream file(i);
+		std::ifstream file(default_path + "/" + i);
 	        if (!file.is_open()) {
 			Missing_Files_.push_back(i);
 			all_exist = false;
@@ -30,30 +33,63 @@ std::pair<int, std::vector<std::string>> Checking_file_exists() {
 //Fils checking process---------------------------------------------
 void File_checking_process_class::File_checking_process()
 {
-	auto status = Checking_file_exists();
 
-	if (status.first) {
-		prgm_boot.Program_Entry();
-	} else{
-		/*Missing files automatic generate after than 'Program_Entry'
-	 	*execute*/
-		std::vector<std::string> missingFiles = status.second;
-		if(!missingFiles.empty()){
-			for (const auto& file : missingFiles){
-				const std::string directory_content = "default_path = ...";
-				if(file == "directory.txt")
+	if(std::filesystem::exists("directory.txt"))
+	{
+		// Read the directory.txt file for default path ------------
+		std::string file_content = rcfv_utility.Read_content_from_vector<std::string>("C:/Users/zzsdr/Desktop/tick/directory.txt");
+		//----------------------------------------------------------
+
+		// Checking the default path is exists or no ---------------
+		int res = file_content.find("...");
+		if (res != std::string::npos)
+		{
+			std::cout << "Set the Default Path!\n";
+			std::cout << "Checkout './execution help' for default path.\n";
+			return;
+		}
+		//----------------------------------------------------------
+
+		else
+		{
+			// Extract the default path ------------------------
+			std::string default_path = default_path_utility.default_path(file_content);
+			//--------------------------------------------------
+
+			auto status = Checking_file_exists(default_path);
+
+			if (status.first)
+			{
+				//prgm_boot.Program_Entry();
+			} else
+			{
+				/*Missing files automatic generate after than 'Program_Entry'
+				*execute*/
+				std::vector<std::string> missingFiles = status.second;
+				if(!missingFiles.empty())
 				{
-					std::cout << "Create File: " << file << std::endl;
-					file_oprs.write_file("directory.txt", directory_content + "\n");
-				} else 
-				{
-					std::cout << "Create File: " << file << std::endl;
-					file_oprs.write_file(file, 0);
+					for (const auto& file : missingFiles)
+					{
+						std::cout << "Create File: " << default_path << "/" << file << std::endl;
+						file_oprs.write_file(default_path + "/" + file, 0);
+					}
 				}
+				//prgm_boot.Program_Entry();
+				//-----------------------------------------------------------
 			}
 		}
-		prgm_boot.Program_Entry();
-		//-----------------------------------------------------------
+	}
+	else
+	{
+		// First init the directory.txt file for program boot ------
+		std::ifstream file("directory.txt");
+		if(!file.is_open())
+		{
+			const std::string directory_content = "default_path = ...";
+			std::cout << "Create File: directory.txt" << std::endl;
+			file_oprs.write_file("directory.txt", directory_content + "\n");
+		}
+		//----------------------------------------------------------
 	}
 }
 //------------------------------------------------------------------

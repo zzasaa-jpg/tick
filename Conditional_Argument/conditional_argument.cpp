@@ -2,6 +2,8 @@
 #include "../File_Operations/file_operations.hpp"
 #include "../All_file_names/All_file_names.hpp"
 #include "../Utility/RMR_Utility/RMR.hpp"
+#include "../Utility/RCFV_Utility/RCFV_Utility.hpp"
+#include "../Utility/DEFAULT_PATH_UTILITY/DEFAULT_PATH.hpp"
 
 #include <string>
 #include <vector>
@@ -11,17 +13,6 @@
 Conditional_Argument_Class condtnl_arg_cls;
 Conditional_Argument_Class::Conditional_Argument_Class(){};
 
-int Read_content_from_vector1(const std::string& file_path)
-{
-	int value;
-	std::vector<std::string> file_content = file_oprs.read_file(file_path);
-	for(const auto& content : file_content)
-	{
-		value = std::stoi(content);
-	}
-	return value;
-}
-
 //Condition of arguments function-----------------------------------
 int Conditional_Argument_Class::condition_of_arguments(char* argv[], int argc)
 {
@@ -30,7 +21,7 @@ int Conditional_Argument_Class::condition_of_arguments(char* argv[], int argc)
 	transform(arg.begin(), arg.end(), arg.begin(), ::tolower);
 
 	if (arg == "status"){
-		int running = Read_content_from_vector1("bool.txt");
+		int running = rcfv_utility.Read_content_from_vector<int>("bool.txt");
 		std::cout << running << std::endl;
 		return 1;
 	} else if(arg == "clear" || arg == "reset"){
@@ -43,8 +34,11 @@ int Conditional_Argument_Class::condition_of_arguments(char* argv[], int argc)
 				std::cout << "File Cleared: " << file << std::endl;
 			} else
 			{
-				file_oprs.write_file(file, 0);
-				std::cout << "File Cleared: " << file << std::endl;
+				std::string file_content = rcfv_utility.Read_content_from_vector<std::string>("directory.txt");
+				std::string default_path = default_path_utility.default_path(file_content);
+
+				file_oprs.write_file(default_path + "/" + file, 0);
+				std::cout << "File Cleared: " << default_path << "/" << file << std::endl;
 			}
 		}
 		return 1;
