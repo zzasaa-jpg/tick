@@ -10,7 +10,8 @@ std::vector<std::string> file_operations::read_file(const std::string& file_path
 	std::ifstream file(file_path);
 	if(!file)
 	{
-		std::cout << "File not found!\n";
+		std::cout << "File not found![File oprs read]\n";
+		return {};
 	}
 
 	std::string line;

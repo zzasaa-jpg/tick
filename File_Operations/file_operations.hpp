@@ -15,7 +15,7 @@ class file_operations{
 			std::ofstream file(file_path);
 			if(!file)
 			{
-				std::cout << "File not found!\n";
+				std::cout << "File not found![File oprs write]\n";
 				return;
 			}
 			file << value;
@@ -30,7 +30,7 @@ class file_operations{
 			std::ofstream file(file_path, std::ios::app);
 			if(!file)
 			{
-				std::cout << "File not found!\n";
+				std::cout << "File not found![File oprs append]\n";
 			}
 			file << value;
 		}

@@ -15,7 +15,7 @@ class RCFV_UTILITY_CLASS
 			std::vector<std::string> file_content = file_oprs.read_file(file_path);
 			if constexpr (std::is_same_v<T, std::string>)
 			{
-				std::string str_value;	
+				std::string str_value;
 				for(const auto& content : file_content)
 				{
 					str_value += content;

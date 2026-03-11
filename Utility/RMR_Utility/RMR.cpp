@@ -13,7 +13,7 @@ int RMR_UTILITY_CLASS::RMR(std::string file_path, std::string target, std::strin
 	std::ifstream inFile(file_path);
 	if(!inFile)
 	{
-		std::cout << "File not foundc!\n";
+		std::cout << "directory.txt file not found![RMR_UTLI]\n";
 		return -1;
 	}
 

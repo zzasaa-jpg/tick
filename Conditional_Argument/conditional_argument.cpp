@@ -4,6 +4,7 @@
 #include "../Utility/RMR_Utility/RMR.hpp"
 #include "../Utility/RCFV_Utility/RCFV_Utility.hpp"
 #include "../Utility/DEFAULT_PATH_UTILITY/DEFAULT_PATH.hpp"
+#include "../Utility/Exists_Path_Utility/Exists_path.hpp"
 
 #include <string>
 #include <vector>
@@ -20,14 +21,17 @@ int Conditional_Argument_Class::condition_of_arguments(char* argv[], int argc)
 	//Normalize
 	transform(arg.begin(), arg.end(), arg.begin(), ::tolower);
 
-	if (arg == "status"){
+	if (arg == "status")
+	{
 		int running = rcfv_utility.Read_content_from_vector<int>("bool.txt");
 		std::cout << running << std::endl;
 		return 1;
-	} else if(arg == "clear" || arg == "reset"){
+	} else if(arg == "clear" || arg == "reset")
+	{
 		std::vector<std::string> Clearing_Files = AFNs_class.get_all_file_names();
 		const std::string directory_content = "default_path = ...";
-		for (auto& file : Clearing_Files){
+		for (auto& file : Clearing_Files)
+		{
 			if(file == "directory.txt")
 			{
 				file_oprs.write_file("directory.txt", directory_content);
@@ -42,7 +46,8 @@ int Conditional_Argument_Class::condition_of_arguments(char* argv[], int argc)
 			}
 		}
 		return 1;
-	} else if(arg == "help"){
+	} else if(arg == "help")
+	{
 		std::cout << "Usage:\n";
 		std::cout << "  cpp.exe        -> Start / Stop timer\n";
 		std::cout << "  cpp.exe status -> Show running status\n";
@@ -56,17 +61,28 @@ int Conditional_Argument_Class::condition_of_arguments(char* argv[], int argc)
 			std::cout << "Default path is require!" << std::endl;
 			return -1;
 		}
-		else
+		std::string default_path = argv[2];
+
+		if(!std::filesystem::exists("C://Users/zzsdr/Desktop/tick/directory.txt"))
 		{
-			std::string default_path = argv[2];
-			if(!std::filesystem::exists(default_path))
-			{
-				std::cout << "Path does not exist!" << std::endl;
-				return -1;
-			}
-			rmr_utility.RMR("C://Users/zzsdr/Desktop/tick/directory.txt", "...", default_path);
-			return 0;
+			std::cout << "directory.txt file not found![Default arg]\n";
+			return -1;
 		}
+
+		if(!std::filesystem::exists(default_path))
+		{
+			std::cout << "Path does not exist![Default arg]" << std::endl;
+			return -1;
+		}
+
+		if(exists_path_class.exists_path("C://Users/zzsdr/Desktop/tick/directory.txt", default_path))
+		{
+			std::cout << "Path is already written!!\n";
+			return -1;
+		}
+
+		rmr_utility.RMR("C://Users/zzsdr/Desktop/tick/directory.txt", "...", default_path);
+		return 0;
 	} else if(arg == "search")
 	{
 		if(argc < 3)
@@ -86,12 +102,30 @@ int Conditional_Argument_Class::condition_of_arguments(char* argv[], int argc)
 		{
 			std::cout << "New path is required!\n";
 			return -1;
-		}else
-		{
-			std::string new_path = argv[2];
-			file_oprs.append_file("C://Users/zzsdr/Desktop/tick/directory.txt", new_path + " - 0\n");
-			return 0;
 		}
+
+		std::string new_path = argv[2];
+
+		if(!std::filesystem::exists("C://Users/zzsdr/Desktop/tick/directory.txt"))
+		{
+			std::cout << "directory.txt file not found![New arg]\n";
+			return -1;
+		}
+
+		if(!std::filesystem::exists(new_path))
+		{
+			std::cout << "Path does not exists![New arg]\n";
+			return -1;
+		}
+
+		if(exists_path_class.exists_path("C://Users/zzsdr/Desktop/tick/directory.txt", new_path))
+		{
+			std::cout << "Path is already written!\n";
+			return -1;
+		}
+
+		file_oprs.append_file("C://Users/zzsdr/Desktop/tick/directory.txt", new_path + " - 0\n");
+		return 0;
 	}
 	else 
 	{
