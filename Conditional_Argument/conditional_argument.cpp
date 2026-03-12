@@ -15,7 +15,32 @@
 Conditional_Argument_Class condtnl_arg_cls;
 Conditional_Argument_Class::Conditional_Argument_Class(){};
 
-//Condition of arguments function-----------------------------------
+// Helper functions ---------------------------------------------------------------------------
+bool Conditional_Argument_Class::path_exists(const std::string& path, const std::string& error)
+{
+    if(!std::filesystem::exists(path))
+    {
+        std::cout << error << std::endl;
+        return false;
+    }
+    return true;
+}
+
+int Conditional_Argument_Class::read_status(const std::string& path)
+{
+    return rcfv_utility.Read_content_from_vector<int>(path + "/bool.txt");
+}
+
+std::string Conditional_Argument_Class::get_default_path()
+{
+    std::string content =
+        rcfv_utility.Read_content_from_vector<std::string>("directory.txt");
+
+    return default_path_utility.default_path(content);
+}
+// --------------------------------------------------------------------------------------------
+
+// Condition of arguments function-------------------------------------------------------------
 int Conditional_Argument_Class::condition_of_arguments(char* argv[], int argc)
 {
 	std::string arg = argv[1];
@@ -24,27 +49,55 @@ int Conditional_Argument_Class::condition_of_arguments(char* argv[], int argc)
 
 	if (arg == "status")
 	{
-		int running = rcfv_utility.Read_content_from_vector<int>("bool.txt");
-		std::cout << running << std::endl;
+		// User path mode ---------------------------------------------
+		if(argc > 2)
+		{
+			std::string user_path = argv[2];
+			std::string error = "Path does not exist! [Status arg]";
+			if(!path_exists(user_path, error)) return -1;
+
+			std::cout << read_status(user_path) << std::endl;
+			return 1;
+		}
+
+		// Default path mode ------------------------------------------
+		std::cout << rcfv_utility.Read_content_from_vector<int>("bool.txt") << std::endl;
 		return 1;
 	} else if(arg == "clear" || arg == "reset")
 	{
 		std::vector<std::string> Clearing_Files = AFNs_class.get_all_file_names();
 		const std::string directory_content = "default_path = ...";
+
+		std::string base_path;
+
+		if(argc > 2)
+		{
+			// User path mode -------------------------------------
+			base_path = argv[2];
+			std::string error = "Path does not exist! [Clear/Reset arg]";
+			if(!path_exists(base_path, error)) return -1;
+
+			int running = read_status(base_path);
+			if(running == -1) return -1;
+		}
+		else
+		{
+			// Default path mode ----------------------------------
+			base_path = get_default_path();
+		}
+
 		for (auto& file : Clearing_Files)
 		{
+			std::string full =  base_path + "/" + file;
+
 			if(file == "directory.txt")
 			{
-				file_oprs.write_file("directory.txt", directory_content);
-				std::cout << "File Cleared: " << file << std::endl;
+				file_oprs.write_file(full, directory_content);
 			} else
 			{
-				std::string file_content = rcfv_utility.Read_content_from_vector<std::string>("directory.txt");
-				std::string default_path = default_path_utility.default_path(file_content);
-
-				file_oprs.write_file(default_path + "/" + file, 0);
-				std::cout << "File Cleared: " << default_path << "/" << file << std::endl;
+				file_oprs.write_file(full, 0);
 			}
+			std::cout << "File Cleared: " << full << std::endl;
 		}
 		return 1;
 	} else if(arg == "help")
@@ -64,25 +117,21 @@ int Conditional_Argument_Class::condition_of_arguments(char* argv[], int argc)
 		}
 		std::string default_path = argv[2];
 
-		if(!std::filesystem::exists("C://Users/zzsdr/Desktop/tick/directory.txt"))
-		{
-			std::cout << "directory.txt file not found![Default arg]\n";
-			return -1;
-		}
+		// Checking the directory.txt file ---------------------------------
+		std::string error_1 = "Directory.txt file does not exist! [Default arg]";
+		if(!path_exists("directory.txt", error_1)) return -1;
 
-		if(!std::filesystem::exists(default_path))
-		{
-			std::cout << "Path does not exist![Default arg]" << std::endl;
-			return -1;
-		}
+		// Checking the default_path is exists or no -----------------------
+		std::string error_2 = "Path does not exist! [Default arg]";
+		if(!path_exists(default_path, error_2)) return -1;
 
-		if(exists_path_class.exists_path("C://Users/zzsdr/Desktop/tick/directory.txt", default_path))
+		if(exists_path_class.exists_path("directory.txt", default_path))
 		{
 			std::cout << "Path is already written!!\n";
 			return -1;
 		}
 
-		rmr_utility.RMR("C://Users/zzsdr/Desktop/tick/directory.txt", "...", default_path);
+		rmr_utility.RMR("directory.txt", "...", default_path);
 		return 0;
 	} else if(arg == "search")
 	{
@@ -107,25 +156,21 @@ int Conditional_Argument_Class::condition_of_arguments(char* argv[], int argc)
 
 		std::string new_path = argv[2];
 
-		if(!std::filesystem::exists("C://Users/zzsdr/Desktop/tick/directory.txt"))
-		{
-			std::cout << "directory.txt file not found![New arg]\n";
-			return -1;
-		}
+		// Checking the directory.txt file ---------------------------------
+		std::string error_1 = "Directory.txt file does not exist! [New arg]";
+		if(!path_exists("directory.txt", error_1)) return -1;
 
-		if(!std::filesystem::exists(new_path))
-		{
-			std::cout << "Path does not exists![New arg]\n";
-			return -1;
-		}
+		// Checking the new_path is exists or no ---------------------------
+		std::string error_2 = "Path does not exist! [New arg]";
+		if(!path_exists(new_path, error_2)) return -1;
 
-		if(exists_path_class.exists_path("C://Users/zzsdr/Desktop/tick/directory.txt", new_path))
+		if(exists_path_class.exists_path("directory.txt", new_path))
 		{
 			std::cout << "Path is already written!\n";
 			return -1;
 		}
 
-		file_oprs.append_file("C://Users/zzsdr/Desktop/tick/directory.txt", new_path + " - 0\n");
+		file_oprs.append_file("directory.txt", new_path + " - 0\n");
 		file_check_prcs.File_checking_process(2, new_path);
 		return 0;
 	}
@@ -136,4 +181,4 @@ int Conditional_Argument_Class::condition_of_arguments(char* argv[], int argc)
 		return -1;
 	}
 }
-//------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------

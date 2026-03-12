@@ -14,15 +14,11 @@ std::vector<std::string> file_operations::read_file(const std::string& file_path
 		return {};
 	}
 
+	std::vector<std::string> content;
 	std::string line;
 	while(std::getline(file, line))
 	{
-		file_oprs.get_read_content().push_back(line);
+		content.push_back(line);
 	}
-	return file_oprs.get_read_content();
-}
-
-std::vector<std::string>& file_operations::get_read_content()
-{
-	return read_content;
+	return content;
 }

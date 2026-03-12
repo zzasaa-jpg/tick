@@ -4,6 +4,7 @@
 #include "../../File_operations/file_operations.hpp"
 #include <string>
 #include <vector>
+#include <iostream>
 
 class RCFV_UTILITY_CLASS
 {
@@ -18,13 +19,31 @@ class RCFV_UTILITY_CLASS
 				std::string str_value;
 				for(const auto& content : file_content)
 				{
-					str_value += content;
+					str_value += content + "\n";
 				}
 				return str_value;
 			}
 			else if constexpr (std::is_same_v<T, int>)
 			{
-				return std::stoi(file_content[0]);
+				if(file_content.empty())
+				{
+					std::cout << "File is empty.[RCFV UTLY]: " << file_path <<"\n";
+					return -1;
+				}
+				try
+				{
+					return std::stoi(file_content[0]);
+				}
+				catch(const std::invalid_argument&)
+				{
+					std::cout << "Invalid number in file.[RCFV UTLY]: " << file_path << "\n";
+					return -1;
+				}
+				catch(const std::out_of_range&)
+				{
+					std::cout << "Number out of range in file.[RCFV UTLY]: " << file_path << "\n";
+					return -1;
+				}
 			}
 		}
 };

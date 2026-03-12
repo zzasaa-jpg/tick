@@ -34,10 +34,6 @@ class file_operations{
 			}
 			file << value;
 		}
-
-		std::vector<std::string>& get_read_content();
-	private:
-		std::vector<std::string> read_content;
 };
 
 extern file_operations file_oprs;

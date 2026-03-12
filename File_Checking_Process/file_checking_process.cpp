@@ -71,8 +71,7 @@ void File_checking_process_class::File_checking_process(int du_flag, std::string
 		}
 
 		// Read the directory.txt file for default path ------------
-		std::string file_content = rcfv_utility.Read_content_from_vector<std::string>
-			("C:/Users/zzsdr/Desktop/tick/directory.txt");
+		std::string file_content = rcfv_utility.Read_content_from_vector<std::string>("directory.txt");
 		//----------------------------------------------------------
 
 		// Checking the default path is exists or no ---------------
