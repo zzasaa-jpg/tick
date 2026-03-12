@@ -14,13 +14,13 @@ File_checking_process_class file_check_prcs;
 File_checking_process_class::File_checking_process_class(){};
 
 //Checking the files exists or no!----------------------------------
-std::pair<int, std::vector<std::string>> Checking_file_exists(std::string& default_path) {
+std::pair<int, std::vector<std::string>> Checking_file_exists(std::string& path) {
 	std::vector<std::string> File_Names_ = AFNs_class.get_all_file_names();
 	std::vector<std::string> Missing_Files_;
     	bool all_exist = true;
 
 	for (const auto& i : File_Names_) {
-		std::ifstream file(default_path + "/" + i);
+		std::ifstream file(path + "/" + i);
 	        if (!file.is_open()) {
 			Missing_Files_.push_back(i);
 			all_exist = false;
@@ -30,14 +30,49 @@ std::pair<int, std::vector<std::string>> Checking_file_exists(std::string& defau
 }
 //------------------------------------------------------------------
 
-//Fils checking process---------------------------------------------
-void File_checking_process_class::File_checking_process()
+// Generate missing files function for default and user path mode---
+void generate_missing_files(int status_first, std::vector<std::string>& status_second, std::string& du_flag_path)
 {
+	if (status_first)
+	{
+		//prgm_boot.Program_Entry();
+	} else
+	{
+		/* Missing files automatic generate after than 'Program_Entry'
+		* execute. */
+		std::vector<std::string> missingFiles = status_second;
+		if(!missingFiles.empty())
+		{
+			for (const auto& file : missingFiles)
+			{
+				std::cout << "Create File: " << du_flag_path << "/" << file << std::endl;
+				file_oprs.write_file(du_flag_path + "/" + file, 0);
+			}
+		}
+		//prgm_boot.Program_Entry();
+		//-----------------------------------------------------------
+	}
+}
+//-------------------------------------------------------------------
 
+//Files checking process---------------------------------------------
+void File_checking_process_class::File_checking_process(int du_flag, std::string& du_flag_path)
+{
 	if(std::filesystem::exists("directory.txt"))
 	{
+		/* If du_flag is two than did not call the default path.
+		 * Directly executing the generate_missing_files function
+		 * via user path. */
+		if (du_flag == 2)
+		{
+			auto status = Checking_file_exists(du_flag_path);
+			generate_missing_files(status.first, status.second, du_flag_path);
+			return;
+		}
+
 		// Read the directory.txt file for default path ------------
-		std::string file_content = rcfv_utility.Read_content_from_vector<std::string>("C:/Users/zzsdr/Desktop/tick/directory.txt");
+		std::string file_content = rcfv_utility.Read_content_from_vector<std::string>
+			("C:/Users/zzsdr/Desktop/tick/directory.txt");
 		//----------------------------------------------------------
 
 		// Checking the default path is exists or no ---------------
@@ -56,27 +91,11 @@ void File_checking_process_class::File_checking_process()
 			std::string default_path = default_path_utility.default_path(file_content);
 			//--------------------------------------------------
 
+			/* Executing the generate_missing_files function via
+			 * default path. */
 			auto status = Checking_file_exists(default_path);
-
-			if (status.first)
-			{
-				//prgm_boot.Program_Entry();
-			} else
-			{
-				/*Missing files automatic generate after than 'Program_Entry'
-				*execute*/
-				std::vector<std::string> missingFiles = status.second;
-				if(!missingFiles.empty())
-				{
-					for (const auto& file : missingFiles)
-					{
-						std::cout << "Create File: " << default_path << "/" << file << std::endl;
-						file_oprs.write_file(default_path + "/" + file, 0);
-					}
-				}
-				//prgm_boot.Program_Entry();
-				//-----------------------------------------------------------
-			}
+			generate_missing_files(status.first, status.second, default_path);
+			//--------------------------------------------------
 		}
 	}
 	else

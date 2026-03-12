@@ -1,5 +1,6 @@
 #include "./conditional_argument.hpp"
 #include "../File_Operations/file_operations.hpp"
+#include "../File_Checking_Process/file_checking_process.hpp"
 #include "../All_file_names/All_file_names.hpp"
 #include "../Utility/RMR_Utility/RMR.hpp"
 #include "../Utility/RCFV_Utility/RCFV_Utility.hpp"
@@ -125,6 +126,7 @@ int Conditional_Argument_Class::condition_of_arguments(char* argv[], int argc)
 		}
 
 		file_oprs.append_file("C://Users/zzsdr/Desktop/tick/directory.txt", new_path + " - 0\n");
+		file_check_prcs.File_checking_process(2, new_path);
 		return 0;
 	}
 	else 
