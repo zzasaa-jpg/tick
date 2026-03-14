@@ -31,11 +31,11 @@ std::pair<int, std::vector<std::string>> Checking_file_exists(std::string& path)
 //------------------------------------------------------------------
 
 // Generate missing files function for default and user path mode---
-void generate_missing_files(int status_first, std::vector<std::string>& status_second, std::string& du_flag_path)
+void generate_missing_files(int status_first, std::vector<std::string>& status_second, int du_flag, std::string& du_flag_path)
 {
 	if (status_first)
 	{
-		//prgm_boot.Program_Entry();
+		prgm_boot.Program_Entry(du_flag, du_flag_path);
 	} else
 	{
 		/* Missing files automatic generate after than 'Program_Entry'
@@ -49,7 +49,7 @@ void generate_missing_files(int status_first, std::vector<std::string>& status_s
 				file_oprs.write_file(du_flag_path + "/" + file, 0);
 			}
 		}
-		//prgm_boot.Program_Entry();
+		prgm_boot.Program_Entry(du_flag, du_flag_path);
 		//-----------------------------------------------------------
 	}
 }
@@ -66,7 +66,7 @@ void File_checking_process_class::File_checking_process(int du_flag, std::string
 		if (du_flag == 2)
 		{
 			auto status = Checking_file_exists(du_flag_path);
-			generate_missing_files(status.first, status.second, du_flag_path);
+			generate_missing_files(status.first, status.second, du_flag, du_flag_path);
 			return;
 		}
 
@@ -93,7 +93,7 @@ void File_checking_process_class::File_checking_process(int du_flag, std::string
 			/* Executing the generate_missing_files function via
 			 * default path. */
 			auto status = Checking_file_exists(default_path);
-			generate_missing_files(status.first, status.second, default_path);
+			generate_missing_files(status.first, status.second, du_flag, default_path);
 			//--------------------------------------------------
 		}
 	}

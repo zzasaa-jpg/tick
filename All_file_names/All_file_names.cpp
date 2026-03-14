@@ -15,7 +15,7 @@ All_file_names_class::All_file_names_class()
 		"bool.txt",
 		"format_time.txt",
 	};
-	//directory.txt
+
 	for(const auto& file_name : file_names)
 	{	
 		All_file_names_vector.push_back(file_name);

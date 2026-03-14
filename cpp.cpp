@@ -43,8 +43,8 @@ int Linear_Search(string file_path, string target)
 	return -1;
 }
 
-int main(int agrc, char* argv[]){
-	if (agrc == 1){
+int main(int argc, char* argv[]){
+	if (argc == 1){
 		//Normal execution
 		/* To successfully execute the file checking process module,
 		 * the dummy path is an empty path. */
@@ -54,7 +54,7 @@ int main(int agrc, char* argv[]){
 	}
 
 	//Arguments execution
-	int result = condtnl_arg_cls.condition_of_arguments(argv, agrc);
+	int result = condtnl_arg_cls.condition_of_arguments(argv, argc);
 
 	//IF unknown argumet, do NOT run timer
 	if (result <= 0) return 0;

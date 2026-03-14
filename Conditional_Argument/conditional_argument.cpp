@@ -6,6 +6,7 @@
 #include "../Utility/RCFV_Utility/RCFV_Utility.hpp"
 #include "../Utility/DEFAULT_PATH_UTILITY/DEFAULT_PATH.hpp"
 #include "../Utility/Exists_Path_Utility/Exists_path.hpp"
+#include "../Program_boot/program_boot.hpp"
 
 #include <string>
 #include <vector>
@@ -61,7 +62,7 @@ int Conditional_Argument_Class::condition_of_arguments(char* argv[], int argc)
 		}
 
 		// Default path mode ------------------------------------------
-		std::cout << rcfv_utility.Read_content_from_vector<int>("bool.txt") << std::endl;
+		std::cout << read_status(condtnl_arg_cls.get_default_path()) << std::endl;
 		return 1;
 	} else if(arg == "clear" || arg == "reset")
 	{
@@ -83,8 +84,11 @@ int Conditional_Argument_Class::condition_of_arguments(char* argv[], int argc)
 		else
 		{
 			// Default path mode ----------------------------------
-			base_path = get_default_path();
+			base_path = condtnl_arg_cls.get_default_path();
 		}
+
+		// If Program is active than terminate the clear/reset files --
+		if(read_status(base_path) == 1) return -1;
 
 		for (auto& file : Clearing_Files)
 		{
@@ -167,6 +171,7 @@ int Conditional_Argument_Class::condition_of_arguments(char* argv[], int argc)
 		if(exists_path_class.exists_path("directory.txt", new_path))
 		{
 			std::cout << "Path is already written!\n";
+			prgm_boot.Program_Entry(2, new_path);
 			return -1;
 		}
 

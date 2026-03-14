@@ -1,5 +1,6 @@
 #include "./program_boot.hpp"
-#include "../File_operations/file_operations.hpp"
+#include "../Conditional_Argument/conditional_argument.hpp"
+#include "../File_Operations/file_operations.hpp"
 #include "../Write_TT/write_tt.hpp"
 
 #include <vector>
@@ -20,11 +21,20 @@ void get_Seconds(const std::string& file_path, tm* ltm)
 }
 //------------------------------------------------------------------
 
-void Program_boot::Program_Entry()
+std::string decide_default_or_user_path(int du_flag, std::string& du_flag_path, std::string file_path)
 {
+	return du_flag == 2 ? du_flag_path + file_path : condtnl_arg_cls.get_default_path() + file_path;
+}
+
+
+void Program_boot::Program_Entry(int du_flag, std::string& du_flag_path)
+{
+	std::cout << du_flag << du_flag_path << std::endl;
+	std::string bool_txt = decide_default_or_user_path(du_flag, du_flag_path, "/bool.txt");
+	std::cout << bool_txt << std::endl;
 	//Bool value read-------------------------------------------
 	int bool_value;
-	std::vector<std::string> file_content = file_oprs.read_file("bool.txt");
+	std::vector<std::string> file_content = file_oprs.read_file(bool_txt);
 	for(const auto& content : file_content)
 	{
 		bool_value = content[0] - '0';
@@ -39,14 +49,17 @@ void Program_boot::Program_Entry()
 	//----------------------------------------------------------
 	if (bool_value == false){
 		//Store the current time inside t1.txt and toggle the bool value
-		get_Seconds("t1.txt", ltm);
-		file_oprs.write_file("bool.txt", 1);
+		std::string t1_txt = decide_default_or_user_path(du_flag, du_flag_path, "/t1.txt");
+		get_Seconds(t1_txt, ltm);
+		std::string bool_txt = decide_default_or_user_path(du_flag, du_flag_path, "/bool.txt");
+		file_oprs.write_file(bool_txt, 1);
 	}else {
 		/*Store the finished time inside t2.txt and toggle the bool value
 		 *and Write the Total Time*/
-		get_Seconds("t2.txt", ltm);
-		file_oprs.write_file("bool.txt", 0);
-		wrt_tt.Write_total_time();
+		std::string t2_txt = decide_default_or_user_path(du_flag, du_flag_path, "/t2.txt");
+		get_Seconds(t2_txt, ltm);
+		file_oprs.write_file(bool_txt, 0);
+		wrt_tt.Write_total_time(du_flag, du_flag_path);
 	}
 	//----------------------------------------------------------
 }
