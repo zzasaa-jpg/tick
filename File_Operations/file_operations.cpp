@@ -20,5 +20,6 @@ std::vector<std::string> file_operations::read_file(const std::string& file_path
 	{
 		content.push_back(line);
 	}
+	file.close();
 	return content;
 }

@@ -2,6 +2,7 @@
 #include "../Conditional_Argument/conditional_argument.hpp"
 #include "../File_Operations/file_operations.hpp"
 #include "../Write_TT/write_tt.hpp"
+#include "../Utility/RMR_Utility/RMR.hpp"
 
 #include <vector>
 #include <iostream>
@@ -27,7 +28,7 @@ std::string decide_default_or_user_path(int du_flag, std::string& du_flag_path, 
 }
 
 
-void Program_boot::Program_Entry(int du_flag, std::string& du_flag_path)
+void Program_boot::Program_Entry(int du_flag, std::string& du_flag_path, std::string& key)
 {
 	std::cout << du_flag << du_flag_path << std::endl;
 	std::string bool_txt = decide_default_or_user_path(du_flag, du_flag_path, "/bool.txt");
@@ -51,6 +52,13 @@ void Program_boot::Program_Entry(int du_flag, std::string& du_flag_path)
 		//Store the current time inside t1.txt and toggle the bool value
 		std::string t1_txt = decide_default_or_user_path(du_flag, du_flag_path, "/t1.txt");
 		get_Seconds(t1_txt, ltm);
+		if(du_flag != 2)
+		{
+			rmr_utility.RMR("directory.txt", "0", "1", "default_path");
+		} else
+		{
+			rmr_utility.RMR("directory.txt", "0", "1", key);
+		}
 		std::string bool_txt = decide_default_or_user_path(du_flag, du_flag_path, "/bool.txt");
 		file_oprs.write_file(bool_txt, 1);
 	}else {
@@ -58,6 +66,13 @@ void Program_boot::Program_Entry(int du_flag, std::string& du_flag_path)
 		 *and Write the Total Time*/
 		std::string t2_txt = decide_default_or_user_path(du_flag, du_flag_path, "/t2.txt");
 		get_Seconds(t2_txt, ltm);
+		if(du_flag != 2)
+		{
+			rmr_utility.RMR("directory.txt", "1", "0", "default_path");
+		} else
+		{
+			rmr_utility.RMR("directory.txt", "1", "0", key);
+		}
 		file_oprs.write_file(bool_txt, 0);
 		wrt_tt.Write_total_time(du_flag, du_flag_path);
 	}

@@ -31,11 +31,11 @@ std::pair<int, std::vector<std::string>> Checking_file_exists(std::string& path)
 //------------------------------------------------------------------
 
 // Generate missing files function for default and user path mode---
-void generate_missing_files(int status_first, std::vector<std::string>& status_second, int du_flag, std::string& du_flag_path)
+void generate_missing_files(int status_first, std::vector<std::string>& status_second, int du_flag, std::string& du_flag_path, std::string& key)
 {
 	if (status_first)
 	{
-		prgm_boot.Program_Entry(du_flag, du_flag_path);
+		prgm_boot.Program_Entry(du_flag, du_flag_path, key);
 	} else
 	{
 		/* Missing files automatic generate after than 'Program_Entry'
@@ -49,14 +49,14 @@ void generate_missing_files(int status_first, std::vector<std::string>& status_s
 				file_oprs.write_file(du_flag_path + "/" + file, 0);
 			}
 		}
-		prgm_boot.Program_Entry(du_flag, du_flag_path);
+		prgm_boot.Program_Entry(du_flag, du_flag_path, key);
 		//-----------------------------------------------------------
 	}
 }
 //-------------------------------------------------------------------
 
 //Files checking process---------------------------------------------
-void File_checking_process_class::File_checking_process(int du_flag, std::string& du_flag_path)
+void File_checking_process_class::File_checking_process(int du_flag, std::string& du_flag_path, std::string& key)
 {
 	if(std::filesystem::exists("directory.txt"))
 	{
@@ -66,7 +66,7 @@ void File_checking_process_class::File_checking_process(int du_flag, std::string
 		if (du_flag == 2)
 		{
 			auto status = Checking_file_exists(du_flag_path);
-			generate_missing_files(status.first, status.second, du_flag, du_flag_path);
+			generate_missing_files(status.first, status.second, du_flag, du_flag_path, key);
 			return;
 		}
 
@@ -79,7 +79,7 @@ void File_checking_process_class::File_checking_process(int du_flag, std::string
 		if (res != std::string::npos)
 		{
 			std::cout << "Set the Default Path!\n";
-			std::cout << "Checkout './execution help' for default path.\n";
+			std::cout << "Checkout cpp.exe help\n";
 			return;
 		}
 		//----------------------------------------------------------
@@ -93,7 +93,7 @@ void File_checking_process_class::File_checking_process(int du_flag, std::string
 			/* Executing the generate_missing_files function via
 			 * default path. */
 			auto status = Checking_file_exists(default_path);
-			generate_missing_files(status.first, status.second, du_flag, default_path);
+			generate_missing_files(status.first, status.second, du_flag, default_path, key);
 			//--------------------------------------------------
 		}
 	}
@@ -103,7 +103,7 @@ void File_checking_process_class::File_checking_process(int du_flag, std::string
 		std::ifstream file("directory.txt");
 		if(!file.is_open())
 		{
-			const std::string directory_content = "default_path = ...";
+			const std::string directory_content = "default_path = ... - 0";
 			std::cout << "Create File: directory.txt" << std::endl;
 			file_oprs.write_file("directory.txt", directory_content + "\n");
 		}

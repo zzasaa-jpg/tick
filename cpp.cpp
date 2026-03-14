@@ -48,8 +48,8 @@ int main(int argc, char* argv[]){
 		//Normal execution
 		/* To successfully execute the file checking process module,
 		 * the dummy path is an empty path. */
-		std::string Duplicate_path = "";
-		file_check_prcs.File_checking_process(0, Duplicate_path);
+		std::string Duplicate_path = "", de = "default_path";
+		file_check_prcs.File_checking_process(0, Duplicate_path, de);
 		return 0;
 	}
 

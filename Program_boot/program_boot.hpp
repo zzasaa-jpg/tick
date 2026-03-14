@@ -6,7 +6,7 @@
 class Program_boot{
 	public:
 		Program_boot();
-		void Program_Entry(int du_flag, std::string& du_flag_path);
+		void Program_Entry(int du_flag, std::string& du_flag_path, std::string& key);
 };
 
 extern Program_boot prgm_boot;

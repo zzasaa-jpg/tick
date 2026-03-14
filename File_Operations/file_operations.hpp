@@ -33,6 +33,7 @@ class file_operations{
 				std::cout << "File not found![File oprs append]\n";
 			}
 			file << value;
+			file.close();
 		}
 };
 
