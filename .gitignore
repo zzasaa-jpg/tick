@@ -1,3 +1,4 @@
+# Vim files
 *.swp
 .*.sw?
 
@@ -7,3 +8,10 @@
 
 # Runtime generated files
 *.txt
+
+# Build artifacts
+build/
+CMakeFiles/
+CMakeCache.txt
+*.o
+*.obj

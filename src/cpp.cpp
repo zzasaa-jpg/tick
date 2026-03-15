@@ -61,5 +61,3 @@ int main(int argc, char* argv[]){
 
 	return 0;
 }
-
-//g++ cpp.cpp ./All_file_names/All_file_names.cpp ./Program_boot/program_boot.cpp ./File_operations/file_operations.cpp ./Write_TT/write_tt.cpp ./File_Checking_Process/file_checking_process.cpp ./Conditional_Argument/conditional_argument.cpp ./Utility/RMR_Utility/RMR.cpp ./Utility/RCFV_Utility/RCFV_Utility.cpp ./Utility/DEFAULT_PATH_UTILITY/DEFAULT_PATH.cpp ./Utility/Exists_Path_Utility/Exists_path.cpp -o cpp
