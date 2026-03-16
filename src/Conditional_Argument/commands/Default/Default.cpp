@@ -15,8 +15,8 @@ int Default(int argc, char* argv[])
 	std::string default_path = argv[2];
 
 	// Checking the default_path is exists or no -----------------------
-	std::string error_2 = "Path does not exist! [Default arg]";
-	if(!condtnl_arg_cls.path_exists(default_path, error_2)) return -1;
+	std::string error = "Path does not exist! [Default arg]";
+	if(!condtnl_arg_cls.path_exists(default_path, error)) return -1;
 
 	// Checking whether a directory file contains a default path or not
 	if(exists_path_class.exists_path("directory.txt", default_path))
