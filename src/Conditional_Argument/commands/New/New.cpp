@@ -24,10 +24,6 @@ int New(int argc, char* argv[])
 	std::string new_path = argv[2];
 	std::string path_key = argv[3];
 
-	// Checking the directory.txt file ---------------------------------
-	std::string error_1 = "Directory.txt file does not exist! [New arg]";
-	if(!condtnl_arg_cls.path_exists("directory.txt", error_1)) return -1;
-
 	// Checking the new_path is exists or no ---------------------------
 	std::string error_2 = "Path does not exist! [New arg]";
 	if(!condtnl_arg_cls.path_exists(new_path, error_2)) return -1;

@@ -18,7 +18,7 @@ int Status(int argc, char* argv[])
 	}
 
 	// Checking whether default path is not set than return -1
-	if(condtnl_arg_cls.get_default_path() == "...\n")
+	if(condtnl_arg_cls.get_default_path() == "...")
 	{
 		std::cout << "Set the default path! [Status arg]\n";
 		return -1;

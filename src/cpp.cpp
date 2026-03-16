@@ -1,47 +1,9 @@
 #include "./File_Checking_Process/file_checking_process.hpp"
 #include "./Conditional_Argument/conditional_argument.hpp"
 
-#include <iostream>
-#include <fstream>
 #include <string>
-#include <vector>
 
 using namespace std;
-
-// split the path into tokens and compare each token exactly.
-int Linear_Search(string file_path, string target)
-{
-	ifstream inFile(file_path);
-	if(!inFile)
-	{
-		cout << "File not found!\n";
-		return -1;
-	}
-
-	string line;
-	while(getline(inFile, line))
-	{
-		string token = "";
-
-		for (size_t i = 0;  i <= line.size(); i++)
-		{
-			if(i == line.size() || line[i] == '/' || line[i] == '\\')
-			{
-				if(token == target)
-				{
-					inFile.close();
-					return 1;
-				}
-				token = "";
-			}else
-			{
-				token += line[i];
-			}
-		}
-	}
-	inFile.close();
-	return -1;
-}
 
 int main(int argc, char* argv[]){
 	if (argc == 1){

@@ -6,6 +6,7 @@
 #include "./commands/Search/Search.hpp"
 #include "./commands/New/New.hpp"
 #include "./commands/List/List.hpp"
+#include "./commands/Session/Session.hpp"
 #include "../Utility/RMR_Utility/RMR.hpp"
 #include "../Utility/RCFV_Utility/RCFV_Utility.hpp"
 #include "../Utility/DEFAULT_PATH_UTILITY/DEFAULT_PATH.hpp"
@@ -49,17 +50,20 @@ int Conditional_Argument_Class::condition_of_arguments(char* argv[], int argc)
 	// Normalize argument ----------------------------------------------
 	transform(arg.begin(), arg.end(), arg.begin(), ::tolower);
 
+	// Program help command and does not need a directory.txt file -----
+	if(arg == "help") return Help();
+
 	// Checking the directory.txt file ---------------------------------
 	std::string error_1 = "Directory.txt file does not exist! [arg]";
 	if(!path_exists("directory.txt", error_1)) return -1;
 
 	if (arg == "status") return Status(argc, argv);
 	else if(arg == "clear" || arg == "reset") return Clear(argc, argv);
-	else if(arg == "help") return Help();
 	else if(arg == "default") return Default(argc, argv);
 	else if(arg == "search") return Search(argc, argv);
 	else if (arg == "new_") return New(argc, argv);
 	else if(arg == "list") return List();
+	else if(arg == "session") return Session(argc, argv);
 	else 
 	{
 		std::cout << "Unknown argument: " << arg << std::endl;

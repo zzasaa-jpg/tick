@@ -14,10 +14,6 @@ int Default(int argc, char* argv[])
 	}
 	std::string default_path = argv[2];
 
-	// Checking the directory.txt file ---------------------------------
-	std::string error_1 = "Directory.txt file does not exist! [Default arg]";
-	if(!condtnl_arg_cls.path_exists("directory.txt", error_1)) return -1;
-
 	// Checking the default_path is exists or no -----------------------
 	std::string error_2 = "Path does not exist! [Default arg]";
 	if(!condtnl_arg_cls.path_exists(default_path, error_2)) return -1;

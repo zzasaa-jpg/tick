@@ -30,7 +30,7 @@ int Clear(int argc, char* argv[])
 		base_path = condtnl_arg_cls.get_default_path();
 
 		// Checking whether default path is not set than return -1
-		if(base_path == "...\n")
+		if(base_path == "...");
 		{
 			std::cout << "Set the default path! [Clear/Reset arg]\n";
 			return -1;
