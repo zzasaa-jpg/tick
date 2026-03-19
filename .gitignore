@@ -6,9 +6,6 @@
 *.un~
 *.exe
 
-# Runtime generated files
-*.txt
-
 # Build artifacts
 build/
 CMakeFiles/
