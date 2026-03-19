@@ -1,4 +1,4 @@
-#include "./Exists_path.hpp"
+#include "./Exists_pk.hpp"
 #include "../../Utility/RCFV_Utility/RCFV_Utility.hpp"
 
 #include <string>
@@ -8,10 +8,11 @@
 
 namespace fs = std::filesystem;
 
-Exists_path_class exists_path_class;
-Exists_path_class::Exists_path_class(){};
+Exists_pk_class exists_pk_class;
+Exists_pk_class::Exists_pk_class(){};
 
 std::unordered_set<std::string> path_cache;
+std::unordered_set<std::string> key_cache;
 fs::file_time_type cached_time;
 
 // Remove the spaces --------------------------------------
@@ -40,7 +41,8 @@ std::string extract_base_path(const std::string& path)
 // --------------------------------------------------------
 
 // If directory.txt have a new content than load new paths
-void load_paths(const std::string& filename)
+// and keys
+void load_path_and_keys(const std::string& filename)
 {
 	path_cache.clear();
 
@@ -53,10 +55,16 @@ void load_paths(const std::string& filename)
 
 		if(pos != std::string::npos)
 		{
-			std::string value = line.substr(pos + 1);
-			value = trim(value); // Trim the path
-			value = extract_base_path(value); // Extract the base path
-			path_cache.insert(value);
+			// caching the paths ------------------------
+			std::string path_ = line.substr(pos + 1);
+			path_ = trim(path_); // Trim the path
+			path_ = extract_base_path(path_); // Extract the base path
+			path_cache.insert(path_);
+
+			// caching the keys -------------------------
+			std::string key_ = line.substr(0, pos);
+			key_ = trim(key_); // Trim the key
+			key_cache.insert(key_);
 		}
 	}
 
@@ -64,7 +72,7 @@ void load_paths(const std::string& filename)
 }
 //---------------------------------------------------------
 
-bool Exists_path_class::exists_path(const std::string& filename, const std::string& targetPath)
+bool Exists_pk_class::exists_path(const std::string& filename, const std::string& targetPath)
 {
 	// Last write time ------------------------------------------
 	fs::file_time_type file_time = fs::last_write_time(filename);
@@ -72,9 +80,25 @@ bool Exists_path_class::exists_path(const std::string& filename, const std::stri
 	// File time is not eqaul to cached time than load new paths
 	if(path_cache.empty() || file_time != cached_time)
 	{
-		load_paths(filename);
+		load_path_and_keys(filename);
 	}
 
 	std::string base_target = trim(targetPath); // Trim the target path
 	return path_cache.find(base_target) != path_cache.end();
+}
+
+
+bool Exists_pk_class::exists_key(const std::string& filename, const std::string& targetKey)
+{
+	// Last write time ------------------------------------------
+	fs::file_time_type file_time = fs::last_write_time(filename);
+
+	// File time is not eqaul to cached time than load new paths
+	if(key_cache.empty() || file_time != cached_time)
+	{
+		load_path_and_keys(filename);
+	}
+
+	std::string base_key = trim(targetKey); // Trim the target key
+	return key_cache.find(base_key) != key_cache.end();
 }

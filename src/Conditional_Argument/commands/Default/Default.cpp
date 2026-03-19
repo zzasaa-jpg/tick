@@ -2,7 +2,7 @@
 #include "../../conditional_argument.hpp"
 #include "../../../Utility/RMR_Utility/RMR.hpp"
 #include "../../../File_Checking_Process/file_checking_process.hpp"
-#include "../../../Utility/Exists_Path_Utility/Exists_path.hpp"
+#include "../../../Utility/Exists_PK_Utility/Exists_pk.hpp"
 #include "../../../Utility/RCFV_Utility/RCFV_Utility.hpp"
 
 int Default(int argc, char* argv[])
@@ -19,7 +19,7 @@ int Default(int argc, char* argv[])
 	if(!condtnl_arg_cls.path_exists(default_path, error)) return -1;
 
 	// Checking whether a directory file contains a default path or not
-	if(exists_path_class.exists_path("directory.txt", default_path))
+	if(exists_pk_class.exists_path("directory.txt", default_path))
 	{
 		std::cout << "Path is already written!!\n";
 		return -1;
@@ -28,6 +28,11 @@ int Default(int argc, char* argv[])
 	// Set the default path --------------------------------------------
 	std::string Duplicate_path = "", de = "default_path";
 	std::string content = rcfv_utility.Read_content_from_vector<std::string>("directory.txt");
+
+	// If timer is active than did not set the default path just return -1
+	if (condtnl_arg_cls.get_default_path() != "..." &&
+	condtnl_arg_cls.read_status(condtnl_arg_cls.get_default_path())) { return -1; }
+
 	rmr_utility.RMR("directory.txt", content.find("...") != std::string::npos ? "..." : condtnl_arg_cls.get_default_path(),default_path, de);
 	file_check_prcs.File_checking_process(0, Duplicate_path, de);
 	return 0;

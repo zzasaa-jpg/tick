@@ -1,6 +1,6 @@
 #include "./Search.hpp"
 #include "../../conditional_argument.hpp"
-#include "../../../Utility/Exists_Path_Utility/Exists_path.hpp"
+#include "../../../Utility/Exists_PK_Utility/Exists_pk.hpp"
 
 #include <iostream>
 #include <string>
@@ -20,7 +20,7 @@ int Search(int argc, char* argv[])
 	std::string error = "Path does not exist! [Search arg]";
 	if(!condtnl_arg_cls.path_exists(search_path, error)) return -1;
 
-	if(exists_path_class.exists_path(fileName, search_path))
+	if(exists_pk_class.exists_path(fileName, search_path))
 	{
 		std::cout << "Path is found! [Search arg]\n";
 		return 1;

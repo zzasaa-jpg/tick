@@ -31,13 +31,24 @@ int RMR_UTILITY_CLASS::RMR(std::string file_path, std::string target, std::strin
 	// Modifying file content ---------------------------------------------
 	for(auto &content : lines)
 	{
-		if(content.find(key) != std::string::npos)
+		size_t pos = content.find('=');
+		if(pos != std::string::npos)
 		{
-		    size_t pos = content.find(target);
+		    std::string found_key = content.substr(0, pos);
 
-		    if(pos != std::string::npos)
+		    // trim spaces
+		    found_key.erase(0, found_key.find_first_not_of(" "));
+		    found_key.erase(found_key.find_last_not_of(" ") + 1);
+
+		    if(found_key == key)
 		    {
-			content.replace(pos, target.length(), put_value);
+			// exact match found
+			size_t pos = content.find(target);
+
+			    if(pos != std::string::npos)
+			    {
+				content.replace(pos, target.length(), put_value);
+			    }
 		    }
 		}
 	}
