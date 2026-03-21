@@ -4,10 +4,12 @@
 #include "../../../Program_boot/program_boot.hpp"
 #include "../../../File_Operations/file_operations.hpp"
 #include "../../../File_Checking_Process/file_checking_process.hpp"
+#include "../../../Utility/Dir_Permission_Checker_Utility/dir_permission.hpp"
 
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 std::string trim0_(const std::string& s)
 {
@@ -36,9 +38,21 @@ int New(int argc, char* argv[])
 	std::string new_path = argv[2];
 	std::string path_key = argv[3];
 
+	// Normalize new_path and path_key ---------------------------------
+	transform(new_path.begin(), new_path.end(), new_path.begin(), ::tolower);
+	transform(path_key.begin(), path_key.end(), path_key.begin(), ::tolower);
+
 	// Checking the new_path is exists or no ---------------------------
 	std::string error = "Path does not exist! [New arg]";
 	if(!condtnl_arg_cls.path_exists(new_path, error)) return -1;
+
+	// Checking the new_path is directory or not -----------------------
+	error = " -> This path is not a directory! [New arg]";
+	if(!condtnl_arg_cls.Is_directory(new_path, error)) return -1;
+
+	// Checking the new_path location permissions ----------------------
+	auto res = DirPermissionChecker::check(new_path);
+	if(!DirPermissionChecker::Print_Permission(res, new_path)) return -1;
 
 	// Checking the user path key is exists or no ----------------------
 	if(exists_pk_class.exists_key("directory.txt", path_key) == false){
@@ -59,7 +73,6 @@ int New(int argc, char* argv[])
 				return -1;
 			}
 		}
-
 	}
 
 	// Reading directory file for terminate execution to same key ------
@@ -102,8 +115,8 @@ int New(int argc, char* argv[])
 		prgm_boot.Program_Entry(2, new_path, path_key);
 		return -1;
 	}
+
 	file_oprs.append_file("directory.txt", path_key + " = " + new_path + " - 0\n");
 	file_check_prcs.File_checking_process(2, new_path, path_key);
 	return 0;
-
 }

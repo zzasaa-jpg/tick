@@ -19,6 +19,17 @@ Conditional_Argument_Class condtnl_arg_cls;
 Conditional_Argument_Class::Conditional_Argument_Class(){};
 
 // Helper functions ---------------------------------------------------------------------------
+bool Conditional_Argument_Class::Is_directory(const std::string& path, const std::string& error)
+{
+	if(!std::filesystem::is_directory(path))
+	{
+		std::cout << path << error << std::endl;
+		return false;
+	}
+	return true;
+}
+
+
 bool Conditional_Argument_Class::path_exists(const std::string& path, const std::string& error)
 {
     if(!std::filesystem::exists(path))

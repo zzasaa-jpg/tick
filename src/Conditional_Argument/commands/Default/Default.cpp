@@ -4,6 +4,9 @@
 #include "../../../File_Checking_Process/file_checking_process.hpp"
 #include "../../../Utility/Exists_PK_Utility/Exists_pk.hpp"
 #include "../../../Utility/RCFV_Utility/RCFV_Utility.hpp"
+#include "../../../Utility/Dir_Permission_Checker_Utility/dir_permission.hpp"
+
+#include <algorithm>
 
 int Default(int argc, char* argv[])
 {
@@ -14,9 +17,20 @@ int Default(int argc, char* argv[])
 	}
 	std::string default_path = argv[2];
 
+	// Normalize new_path and path_key ---------------------------------
+	transform(default_path.begin(), default_path.end(), default_path.begin(), ::tolower);
+
 	// Checking the default_path is exists or no -----------------------
 	std::string error = "Path does not exist! [Default arg]";
 	if(!condtnl_arg_cls.path_exists(default_path, error)) return -1;
+
+	// Checking the default_path is directory or not -------------------
+	error = " -> This path is not a directory! [Default arg]";
+	if(!condtnl_arg_cls.Is_directory(default_path, error)) return -1;
+
+	// Checking the default_path location permissions ------------------
+	auto res = DirPermissionChecker::check(default_path);
+	if(!DirPermissionChecker::Print_Permission(res, default_path)) return -1;
 
 	// Checking whether a directory file contains a default path or not
 	if(exists_pk_class.exists_path("directory.txt", default_path))

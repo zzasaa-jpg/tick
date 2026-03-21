@@ -18,6 +18,7 @@ add_executable(cpp
     src/Utility/DEFAULT_PATH_UTILITY/DEFAULT_PATH.cpp
     src/Utility/Exists_PK_Utility/Exists_pk.cpp
     src/Utility/LOAT_Utility/LOAT.cpp
+    src/Utility/Dir_Permission_Checker_Utility/dir_permission.cpp
     src/Conditional_Argument/commands/Status/status.cpp
     src/Conditional_Argument/commands/Clear/clear.cpp
     src/Conditional_Argument/commands/Help/Help.cpp
