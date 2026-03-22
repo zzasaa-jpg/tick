@@ -45,10 +45,25 @@ int RMR_UTILITY_CLASS::RMR(std::string file_path, std::string target, std::strin
 			// exact match found
 			size_t pos = content.find(target);
 
+			// If target is only change status than last character only re-write.
+			if(target == "1" || target == "0")
+			{
+				if(content.back() == '1')
+				{
+					content.back() = '0';
+				} else
+				{
+					content.back() = '1';
+				}
+			}
+			// Target length and pos according re-write.
+			else
+			{
 			    if(pos != std::string::npos)
 			    {
 				content.replace(pos, target.length(), put_value);
 			    }
+			}
 		    }
 		}
 	}
