@@ -28,4 +28,5 @@ add_executable(cpp
     src/Conditional_Argument/commands/New/New.cpp
     src/Conditional_Argument/commands/List/List.cpp
     src/Conditional_Argument/commands/Session/Session.cpp
+    src/Conditional_Argument/commands/Version/Version.cpp
 )
