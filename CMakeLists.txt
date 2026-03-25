@@ -9,7 +9,7 @@ add_executable(cpp
     src/cpp.cpp
     src/All_file_names/All_file_names.cpp
     src/Program_boot/program_boot.cpp
-    src/File_operations/file_operations.cpp
+    src/File_Operations/file_operations.cpp
     src/Write_TT/write_tt.cpp
     src/File_Checking_Process/file_checking_process.cpp
     src/Conditional_Argument/conditional_argument.cpp
@@ -21,7 +21,7 @@ add_executable(cpp
     src/Utility/Dir_Permission_Checker_Utility/dir_permission.cpp
     src/Utility/REMOVE_SLASH_UTILITY/Remove_Slash.cpp
     src/Conditional_Argument/commands/Status/status.cpp
-    src/Conditional_Argument/commands/Clear/clear.cpp
+    src/Conditional_Argument/commands/Clear/Clear.cpp
     src/Conditional_Argument/commands/Help/Help.cpp
     src/Conditional_Argument/commands/Default/Default.cpp
     src/Conditional_Argument/commands/Search/Search.cpp
