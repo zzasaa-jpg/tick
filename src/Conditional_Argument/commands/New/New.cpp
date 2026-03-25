@@ -5,6 +5,7 @@
 #include "../../../File_Operations/file_operations.hpp"
 #include "../../../File_Checking_Process/file_checking_process.hpp"
 #include "../../../Utility/Dir_Permission_Checker_Utility/dir_permission.hpp"
+#include "../../../Utility/REMOVE_SLASH_UTILITY/Remove_Slash.hpp"
 
 #include <iostream>
 #include <string>
@@ -53,6 +54,9 @@ int New(int argc, char* argv[])
 	// Checking the new_path location permissions ----------------------
 	auto res = DirPermissionChecker::check(new_path);
 	if(!DirPermissionChecker::Print_Permission(res, new_path)) return -1;
+
+	// Remove duplicate slash ------------------------------------------
+	new_path = remove_slash_utility.remove_slash(new_path);
 
 	// Checking the user path key is exists or no ----------------------
 	if(exists_pk_class.exists_key("directory.txt", path_key) == false){

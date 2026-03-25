@@ -5,6 +5,7 @@
 #include "../../../Utility/Exists_PK_Utility/Exists_pk.hpp"
 #include "../../../Utility/RCFV_Utility/RCFV_Utility.hpp"
 #include "../../../Utility/Dir_Permission_Checker_Utility/dir_permission.hpp"
+#include "../../../Utility/REMOVE_SLASH_UTILITY/Remove_Slash.hpp"
 
 #include <algorithm>
 
@@ -17,7 +18,7 @@ int Default(int argc, char* argv[])
 	}
 	std::string default_path = argv[2];
 
-	// Normalize new_path and path_key ---------------------------------
+	// Normalize default_path ------------------------------------------
 	transform(default_path.begin(), default_path.end(), default_path.begin(), ::tolower);
 
 	// Checking the default_path is exists or no -----------------------
@@ -32,13 +33,16 @@ int Default(int argc, char* argv[])
 	auto res = DirPermissionChecker::check(default_path);
 	if(!DirPermissionChecker::Print_Permission(res, default_path)) return -1;
 
+	// Remove duplicate slash ------------------------------------------
+	default_path = remove_slash_utility.remove_slash(default_path);
+
 	// Checking whether a directory file contains a default path or not
 	if(exists_pk_class.exists_path("directory.txt", default_path))
 	{
 		std::cout << "Path is already written!!\n";
 		return -1;
 	}
-	
+
 	// Set the default path --------------------------------------------
 	std::string Duplicate_path = "", de = "default_path";
 	std::string content = rcfv_utility.Read_content_from_vector<std::string>("directory.txt");
