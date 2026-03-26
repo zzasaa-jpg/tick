@@ -19,7 +19,9 @@ int Default(int argc, char* argv[])
 	std::string default_path = argv[2];
 
 	// Normalize default_path ------------------------------------------
+	#ifdef _WIN32
 	transform(default_path.begin(), default_path.end(), default_path.begin(), ::tolower);
+	#endif
 
 	// Checking the default_path is exists or no -----------------------
 	std::string error = "Path does not exist! [Default arg]";

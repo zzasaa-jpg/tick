@@ -105,7 +105,7 @@ void File_checking_process_class::File_checking_process(int du_flag, std::string
 		{
 			const std::string directory_content = "default_path = ... - 0";
 			std::cout << "Create File: directory.txt" << std::endl;
-			file_oprs.write_file("directory.txt", directory_content + "\n");
+			file_oprs.write_file("directory.txt", directory_content);
 		}
 		//----------------------------------------------------------
 	}

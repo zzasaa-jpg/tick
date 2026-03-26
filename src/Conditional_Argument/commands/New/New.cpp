@@ -40,8 +40,10 @@ int New(int argc, char* argv[])
 	std::string path_key = argv[3];
 
 	// Normalize new_path and path_key ---------------------------------
+	#ifdef _WIN32
 	transform(new_path.begin(), new_path.end(), new_path.begin(), ::tolower);
 	transform(path_key.begin(), path_key.end(), path_key.begin(), ::tolower);
+	#endif
 
 	// Checking the new_path is exists or no ---------------------------
 	std::string error = "Path does not exist! [New arg]";

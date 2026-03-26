@@ -18,7 +18,7 @@ bool DirPermissionChecker::Print_Permission(const DirPermission& res, const fs::
 	if(!res.canRead) 
 	{
 		std::cout << "Read permission denied at -> " << dirPath << std::endl;
-		ok + false;
+		ok = false;
 	}
 	if(!res.canWrite)
 	{

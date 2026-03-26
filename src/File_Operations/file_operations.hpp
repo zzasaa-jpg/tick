@@ -18,7 +18,7 @@ class file_operations{
 				std::cout << "File not found![File oprs write]\n";
 				return;
 			}
-			file << value;
+			file << value << std::endl;
 			file.close();
 		}
 

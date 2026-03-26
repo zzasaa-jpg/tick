@@ -11,8 +11,8 @@ namespace fs = std::filesystem;
 Exists_pk_class exists_pk_class;
 Exists_pk_class::Exists_pk_class(){};
 
-std::unordered_set<std::string> path_cache;
-std::unordered_set<std::string> key_cache;
+std::unordered_set<std::string> path_cache, key_cache;
+
 fs::file_time_type cached_time;
 
 // Remove the spaces --------------------------------------
