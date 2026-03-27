@@ -20,6 +20,7 @@ add_executable(cpp
     src/Utility/LOAT_Utility/LOAT.cpp
     src/Utility/Dir_Permission_Checker_Utility/dir_permission.cpp
     src/Utility/REMOVE_SLASH_UTILITY/Remove_Slash.cpp
+    src/Utility/Print_Timer_Utility/Print_Timer.cpp
     src/Conditional_Argument/commands/Status/status.cpp
     src/Conditional_Argument/commands/Clear/Clear.cpp
     src/Conditional_Argument/commands/Help/Help.cpp

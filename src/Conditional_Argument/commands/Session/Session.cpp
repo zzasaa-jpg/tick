@@ -1,27 +1,7 @@
 #include "./Session.hpp"
 #include "../../conditional_argument.hpp"
 #include "../../../Utility/RCFV_Utility/RCFV_Utility.hpp"
-
-//Get-seconds--------------------------------------------------------
-void get_Seconds(tm* ltm, int time_1)
-{
-	int totalSeconds = 
-		ltm-> tm_hour * 3600 +
-		ltm-> tm_min * 60 +
-		ltm-> tm_sec;
-	int session_time = totalSeconds - time_1;
-	int hours = (session_time / 3600),
-		    remainder = session_time % 3600,
-		    minutes = remainder / 60,
-		    seconds = remainder % 60;
-	std::cout 
-		<< "Session Time: "
-		<< (hours   < 10 ? "0" : "") << hours   << ":"
-		<< (minutes < 10 ? "0" : "") << minutes << ":"
-		<< (seconds < 10 ? "0" : "") << seconds
-		<< std::endl;
-}
-//-------------------------------------------------------------------
+#include "../../../Utility/Print_Timer_Utility/Print_Timer.hpp"
 
 int Session(int argc, char* argv[])
 {
@@ -72,10 +52,9 @@ int Session(int argc, char* argv[])
 
 	//Time pointer initialization--------------------------------
 	time_t now = time(0);
-	tm *ltm = localtime(&now);
 	//-----------------------------------------------------------
 
 	int time_1 = rcfv_utility.Read_content_from_vector<int>(base_path + "/t1.txt");
-	get_Seconds(ltm, time_1);
+	print_timer_utility.print_timer(now - time_1, "Session Time: ");
 	return 1;
 }

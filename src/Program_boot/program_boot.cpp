@@ -12,13 +12,10 @@ Program_boot prgm_boot;
 Program_boot::Program_boot(){};
 
 //Get-seconds-------------------------------------------------------
-void get_Seconds(const std::string& file_path, tm* ltm)
+void get_Seconds(const std::string& file_path)
 {
-	int totalSeconds = 
-		ltm-> tm_hour * 3600 +
-		ltm-> tm_min * 60 +
-		ltm-> tm_sec;
-	file_oprs.write_file(file_path, totalSeconds);
+	time_t now = time(0);
+	file_oprs.write_file(file_path, now);
 }
 //------------------------------------------------------------------
 
@@ -42,16 +39,11 @@ void Program_boot::Program_Entry(int du_flag, std::string& du_flag_path, std::st
 	}
 	//----------------------------------------------------------
 
-	//Time pointer initialization-------------------------------
-	time_t now = time(0);
-	tm *ltm = localtime(&now);
-	//----------------------------------------------------------
-
 	//----------------------------------------------------------
 	if (bool_value == false){
 		//Store the current time inside t1.txt and toggle the bool value
 		std::string t1_txt = decide_default_or_user_path(du_flag, du_flag_path, "/t1.txt");
-		get_Seconds(t1_txt, ltm);
+		get_Seconds(t1_txt);
 		if(du_flag != 2)
 		{
 			rmr_utility.RMR("directory.txt", "0", "1", "default_path");
@@ -65,7 +57,7 @@ void Program_boot::Program_Entry(int du_flag, std::string& du_flag_path, std::st
 		/*Store the finished time inside t2.txt and toggle the bool value
 		 *and Write the Total Time*/
 		std::string t2_txt = decide_default_or_user_path(du_flag, du_flag_path, "/t2.txt");
-		get_Seconds(t2_txt, ltm);
+		get_Seconds(t2_txt);
 		if(du_flag != 2)
 		{
 			rmr_utility.RMR("directory.txt", "1", "0", "default_path");
