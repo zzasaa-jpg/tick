@@ -12,3 +12,6 @@ CMakeFiles/
 CMakeCache.txt
 *.o
 *.obj
+
+#Test EXE files
+test/file_operation_tests/Test_EXE_file/
