@@ -14,6 +14,8 @@ CLI timer tool written in C++.
 
 Run tests:
 
+```
 g++ test_read_file.cpp ../../src/File_Operations/file_operations.cpp -o ./Test_exe_file/test_read
 g++ test_write_file.cpp ../../src/File_Operations/file_operations.cpp -o ./Test_exe_file/test_write
 g++ test_append_file.cpp ../../src/File_Operations/file_operations.cpp -o ./Test_exe_file/test_append
+```
