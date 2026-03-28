@@ -1,0 +1,5 @@
+```
+g++ test_Default_path_utility.cpp ../../src/Utility/DEFAULT_PATH_UTILITY/DEFAULT_PATH.cpp ../../src/File_Operations/file_operations.cpp ../../src/Utility/RCFV_Utility/RCFV_Utility.cpp -o ./Test_EXE_file/test_default_path
+
+g++ test_dir_permission_checker_utility.cpp ../../src/File_Operations/file_operations.cpp ../../src/Utility/Dir_Permission_Checker_Utility/dir_permission.cpp -o ./Test_EXE_file/test_dir_permission_checker
+```
