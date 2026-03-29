@@ -11,5 +11,5 @@ g++ test_RMR_utility.cpp ../../src/File_Operations/file_operations.cpp ../../src
 
 g++ test_Remove_slash_utility.cpp ../../src/File_Operations/file_operations.cpp ../../src/Utility/REMOVE_SLASH_UTILITY/Remove_Slash.cpp -o ./Test_EXE_file/test_Remove_Slash_Utility
 
-
+g++ test_print_timer_utility.cpp ../../src/File_Operations/file_operations.cpp ../../src/Utility/Print_Timer_Utility/Print_Timer.cpp -o ./Test_EXE_file/test_print_timer_Utility
 ```
