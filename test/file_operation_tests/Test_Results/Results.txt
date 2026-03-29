@@ -1,0 +1,7 @@
+*-------------------------------------*
+| File names           | Results      |
+|----------------------|--------------|
+| test_append_file.cpp | Pass         |
+| test_read_file.cpp   | Pass         |
+| test_write_file.cpp  | Pass         |
+*-------------------------------------*
