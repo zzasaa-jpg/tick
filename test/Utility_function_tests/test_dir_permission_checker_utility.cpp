@@ -6,15 +6,12 @@
 
 int main()
 {
-	file_oprs.write_file("./Test_Results/test2.txt", "Hello World");
+	file_oprs.write_file("./Testing_txt_files/test2.txt", "Hello World");
 	
-	std::string path = "./Test_Results";
+	// Checking directory permission
+	std::string path = "./Testing_txt_files";
 	auto res = DirPermissionChecker::check(path);
-	if(!DirPermissionChecker::Print_Permission(res, path)) 
-	{
-		std::cout << -1;
-		return -1;
-	}
+	if(!DirPermissionChecker::Print_Permission(res, path)) { std::cout << -1 << std::endl; return -1; }
 
 	std::cout << "Test passed\n";
 	return 0;

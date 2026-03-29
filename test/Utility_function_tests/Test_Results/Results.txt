@@ -1,0 +1,11 @@
+*--------------------------------------------------------*
+| File names                              | Results      |
+|-----------------------------------------|--------------|
+| test_Default_path_utility.cpp           | Pass         |
+| test_dir_permission_checker_utility.cpp | Pass         |
+| test_exists_pk_utility.cpp              | Pass         |
+| test_print_timer_utility.cpp            | Pass         |
+| test_RCFV_utility.cpp                   | Pass         |
+| test_Remove_Slash_utility.cpp           | Pass         |
+| test_RMR_utility.cpp                    | Pass         |
+*--------------------------------------------------------*
