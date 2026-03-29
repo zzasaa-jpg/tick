@@ -7,5 +7,7 @@ g++ test_RCFV_utility.cpp ../../src/File_Operations/file_operations.cpp ../../sr
 
 g++ test_exists_pk_utility.cpp ../../src/File_Operations/file_operations.cpp ../../src/Utility/Exists_PK_Utility/Exists_pk.cpp -o ./Test_EXE_file/test_Exists_Pk_Utility
 
+g++ test_RMR_utility.cpp ../../src/File_Operations/file_operations.cpp ../../src/Utility/RMR_Utility/RMR.cpp -o ./Test_EXE_file/test_RMR_Utility
+
 
 ```

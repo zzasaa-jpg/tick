@@ -14,4 +14,7 @@ CMakeCache.txt
 *.obj
 
 #Test EXE files
-test/file_operation_tests/Test_EXE_file/
+Test_EXE_file/
+
+#Testing TXT files
+Testing_txt_files/

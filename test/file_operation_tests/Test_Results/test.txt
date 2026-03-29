@@ -1,1 +1,0 @@
-Hello world From CLI Timer Tool(Tick).
