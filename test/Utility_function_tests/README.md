@@ -9,5 +9,7 @@ g++ test_exists_pk_utility.cpp ../../src/File_Operations/file_operations.cpp ../
 
 g++ test_RMR_utility.cpp ../../src/File_Operations/file_operations.cpp ../../src/Utility/RMR_Utility/RMR.cpp -o ./Test_EXE_file/test_RMR_Utility
 
+g++ test_Remove_slash_utility.cpp ../../src/File_Operations/file_operations.cpp ../../src/Utility/REMOVE_SLASH_UTILITY/Remove_Slash.cpp -o ./Test_EXE_file/test_Remove_Slash_Utility
+
 
 ```
