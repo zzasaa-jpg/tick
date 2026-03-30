@@ -20,6 +20,8 @@ int Help()
 	std::cout << "|  cpp.exe session       | Show default path session time with out timer stop |\n";
 	std::cout << "|  cpp.exe session path  | Show user path session time with out timer stop    |\n";
 	std::cout << "|  cpp.exe help          | Show this help                                     |\n";
+	std::cout << "|  cpp.exe version       | Print the tool current version                     |\n";
+	std::cout << "|  cpp.exe search        | Search specific timer path in directory file       |\n";
 	std::cout << "*-----------------------------------------------------------------------------*\n";
 	return 1;
 }

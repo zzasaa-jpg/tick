@@ -3,16 +3,16 @@
 CLI timer tool written in C++.
 
 ## Features
-| Utility Name | Core functionality |
-|--------------|--------------------|
-| DEFAULT_PATH_UTILITY | Return the default path to entire project |
-| Dir_Permission_Checker_Utility | Checking the premission of giver directory path |
-| Exists_PK_Utility | Checking the user typing path & key is already exists or not in directory file |
-| LOAT_Utility | Print the active timers |
-| Print_Timer_Utility | Given elapsed seconds convert to formatting time |
-| RCFV_Utility | Read content from vector use to reading file |
-| REMOVE_SLASH_UTILITY | This utility Remove unwanted slash and format to valid path according windows and linux file system path |
-| RMR_Utility | This utility Read file, Modify according given target & key, Re-write according put_value |
+| Utility Name                   | Core functionality                                                 |
+| ------------------------------ | ------------------------------------------------------------------ |
+| DEFAULT_PATH_UTILITY           | Returns the default project directory path                         |
+| Dir_Permission_Checker_Utility | Checks directory permissions                                       |
+| Exists_PK_Utility              | Checks if a path/key already exists in the directory file          |
+| LOAT_Utility                   | Prints currently active timers                                     |
+| Print_Timer_Utility            | Converts elapsed seconds into formatted time                       |
+| RCFV_Utility                   | Reads content into a vector for file processing                    |
+| REMOVE_SLASH_UTILITY           | Normalizes file paths for Windows and Linux                        |
+| RMR_Utility                    | Reads, modifies, and rewrites file content using key/value targets |
 
 ## Tests
 | File names                              | Results      |
