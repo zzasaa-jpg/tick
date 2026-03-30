@@ -42,17 +42,16 @@ So I built this tool to:
 | `t2.txt` | Session end time (seconds) |
 | `tt.txt` | Total accumulated time (seconds) |
 | `bool.txt` | Timer state (0 = stopped, 1 = running) |
-| `format_time.txt` | Human-readable total time (HH:MM:SS) |
-
-All files are auto-created if missing.
+| `format_time.txt` | Human-readable total time (CEN : DEC : YR : MON : DAY : HR : MIN : SEC) |
 
 ---
 
 ## 🚀 Usage
 
 ### ▶ Start / Stop Timer
-```bash
-cpp.exe
+```
+Default path mode: cpp.exe
+User path mode   : cpp.exe path
 ```
 
 ---
@@ -60,4 +59,3 @@ cpp.exe
 ## 🔧 Add Tool to System PATH
 
 You can make this tool available globally from any terminal by adding the compiled executable to your system PATH.
-
