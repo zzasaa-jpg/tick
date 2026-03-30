@@ -1,0 +1,44 @@
+# Tick CLI Timer Tool
+
+CLI timer tool written in C++.
+
+## Features
+| Utility Name | Core functionality |
+|--------------|--------------------|
+| DEFAULT_PATH_UTILITY | Return the default path to entire project |
+| Dir_Permission_Checker_Utility | Checking the premission of giver directory path |
+| Exists_PK_Utility | Checking the user typing path & key is already exists or not in directory file |
+| LOAT_Utility | Print the active timers |
+| Print_Timer_Utility | Given elapsed seconds convert to formatting time |
+| RCFV_Utility | Read content from vector use to reading file |
+| REMOVE_SLASH_UTILITY | This utility Remove unwanted slash and format to valid path according windows and linux file system path |
+| RMR_Utility | This utility Read file, Modify according given target & key, Re-write according put_value |
+
+## Tests
+| File names                              | Results      |
+|-----------------------------------------|--------------|
+| test_Default_path_utility.cpp           | **Pass**     |
+| test_dir_permission_checker_utility.cpp | **Pass**     |
+| test_exists_pk_utility.cpp              | **Pass**     |
+| test_print_timer_utility.cpp            | **Pass**     |
+| test_RCFV_utility.cpp                   | **Pass**     |
+| test_Remove_Slash_utility.cpp           | **Pass**     |
+| test_RMR_utility.cpp                    | **Pass**     |
+
+
+## Run tests
+```
+g++ test_Default_path_utility.cpp ../../src/Utility/DEFAULT_PATH_UTILITY/DEFAULT_PATH.cpp ../../src/File_Operations/file_operations.cpp ../../src/Utility/RCFV_Utility/RCFV_Utility.cpp -o ./Test_EXE_file/test_default_path
+
+g++ test_dir_permission_checker_utility.cpp ../../src/File_Operations/file_operations.cpp ../../src/Utility/Dir_Permission_Checker_Utility/dir_permission.cpp -o ./Test_EXE_file/test_dir_permission_checker
+
+g++ test_RCFV_utility.cpp ../../src/File_Operations/file_operations.cpp ../../src/Utility/RCFV_Utility/RCFV_Utility.cpp -o ./Test_EXE_file/test_RCFV
+
+g++ test_exists_pk_utility.cpp ../../src/File_Operations/file_operations.cpp ../../src/Utility/Exists_PK_Utility/Exists_pk.cpp -o ./Test_EXE_file/test_Exists_Pk_Utility
+
+g++ test_RMR_utility.cpp ../../src/File_Operations/file_operations.cpp ../../src/Utility/RMR_Utility/RMR.cpp -o ./Test_EXE_file/test_RMR_Utility
+
+g++ test_Remove_slash_utility.cpp ../../src/File_Operations/file_operations.cpp ../../src/Utility/REMOVE_SLASH_UTILITY/Remove_Slash.cpp -o ./Test_EXE_file/test_Remove_Slash_Utility
+
+g++ test_print_timer_utility.cpp ../../src/File_Operations/file_operations.cpp ../../src/Utility/Print_Timer_Utility/Print_Timer.cpp -o ./Test_EXE_file/test_print_timer_Utility
+```
