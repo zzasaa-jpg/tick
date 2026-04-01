@@ -11,7 +11,7 @@ std::string PRINT_TIMER_UTILITY_CLASS::format_time_ostring_stream(long long elap
 {
 	struct Unit { long long value; const char* label; };
 
-	const std::vector<Unit> units = 
+	const std::vector<Unit> units_vector =
 	{
 		{100LL * 365 * 24 * 3600, "c"},
 		{10LL  * 365 * 24 * 3600, "dec"},
@@ -22,16 +22,16 @@ std::string PRINT_TIMER_UTILITY_CLASS::format_time_ostring_stream(long long elap
 
 	std::ostringstream out;
 
-	for(auto &u : units)
+	for(auto &unit : units_vector)
 	{
-		long long v = elapsed_seconds / u.value;
-		elapsed_seconds %= u.value;
+		long long v = elapsed_seconds / unit.value;
+		elapsed_seconds %= unit.value;
 
-		if(v > 0 || out.tellp() > 0) out << (v < 10 ? "0" : "") << v << u.label << ":";
+		if(v > 0 || out.tellp() > 0) out << (v < 10 ? "0" : "") << v << unit.label << ":";
 	}
 
-	int hours   = elapsed_seconds / 3600; elapsed_seconds %= 3600;
-	int minutes = elapsed_seconds / 60; elapsed_seconds %= 60;
+	int hours = elapsed_seconds / 3600, minutes = elapsed_seconds / 60;
+	elapsed_seconds %= 3600, elapsed_seconds %= 60;
 
 	auto pad = [](int x){return (x < 10 ? "0" : "") + std::to_string(x); };
 

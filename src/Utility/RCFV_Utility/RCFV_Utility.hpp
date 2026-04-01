@@ -27,7 +27,7 @@ class RCFV_UTILITY_CLASS
 			{
 				if(file_content.empty())
 				{
-					std::cout << "File is empty.[RCFV UTLY]: " << file_path <<"\n";
+					std::cout << "File is empty.[RCFV UTILITY]: " << file_path <<"\n";
 					return -1;
 				}
 				try
@@ -36,12 +36,12 @@ class RCFV_UTILITY_CLASS
 				}
 				catch(const std::invalid_argument&)
 				{
-					std::cout << "Invalid number in file.[RCFV UTLY]: " << file_path << "\n";
+					std::cout << "Invalid number in file.[RCFV UTILITY]: " << file_path << "\n";
 					return -1;
 				}
 				catch(const std::out_of_range&)
 				{
-					std::cout << "Number out of range in file.[RCFV UTLY]: " << file_path << "\n";
+					std::cout << "Number out of range in file.[RCFV UTILITY]: " << file_path << "\n";
 					return -1;
 				}
 			}

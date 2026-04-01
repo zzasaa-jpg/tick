@@ -61,13 +61,13 @@ DirPermission DirPermissionChecker::check(const fs::path& dirPath)
 
 	// WRITE
 	fs::path tempFile = dirPath / randomName();
-	std::ofstream file(tempFile, std::ios::out | std::ios::trunc);
+	std::ofstream write_file_stream(tempFile, std::ios::out | std::ios::trunc);
 
-	if(file.is_open())
+	if(write_file_stream.is_open())
 	{
-		file.close();
-		std::error_code ec;
-		fs::remove(tempFile, ec);
+		write_file_stream.close();
+		std::error_code err_code;
+		fs::remove(tempFile, err_code);
 		result.canWrite = true;
 	}
 

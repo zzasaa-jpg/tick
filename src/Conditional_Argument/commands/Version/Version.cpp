@@ -5,6 +5,6 @@
 
 int Version()
 {
-	std::cout << "Tick Version -> 1.0.0\n";
+	std::cout << "Tick Version -> 2.0.0\n";
 	return 1;
 }

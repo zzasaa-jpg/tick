@@ -14,8 +14,8 @@
 
 std::string trim0_(const std::string& s)
 {
-    size_t start = s.find_first_not_of(" \t");
-    size_t end   = s.find_last_not_of(" \t");
+    size_t start = s.find_first_not_of(" \t"),
+	   end   = s.find_last_not_of(" \t");
 
     if(start == std::string::npos)
         return "";
@@ -36,8 +36,7 @@ int New(int argc, char* argv[])
 		return -1;
 	}
 
-	std::string new_path = argv[2];
-	std::string path_key = argv[3];
+	std::string new_path = argv[2], path_key = argv[3], error;
 
 	// Normalize new_path and path_key ---------------------------------
 	#ifdef _WIN32
@@ -46,7 +45,7 @@ int New(int argc, char* argv[])
 	#endif
 
 	// Checking the new_path is exists or no ---------------------------
-	std::string error = "Path does not exist! [New arg]";
+	error = "Path does not exist! [New arg]";
 	if(!condtnl_arg_cls.path_exists(new_path, error)) return -1;
 
 	// Checking the new_path is directory or not -----------------------
@@ -82,9 +81,9 @@ int New(int argc, char* argv[])
 	}
 
 	// Reading directory file for terminate execution to same key ------
-	std::ifstream file("directory.txt");
+	std::ifstream read_file_stream("directory.txt");
 	std::string line, path;
-	while(std::getline(file, line))
+	while(std::getline(read_file_stream, line))
 	{
 		size_t pos = line.find('=');
 		if(pos != std::string::npos)
@@ -98,8 +97,7 @@ int New(int argc, char* argv[])
 		    if(found_key == path_key)
 		    {
 			// exact match found
-			size_t dash_pos = line.find('-');
-			size_t equal_pos = line.find('=');
+			size_t dash_pos = line.find('-'), equal_pos = line.find('=');
 			if(dash_pos != std::string::npos && equal_pos != std::string::npos)
 			{
 				std::string path_ = line.substr(equal_pos + 1, dash_pos - equal_pos - 1);
@@ -118,11 +116,11 @@ int New(int argc, char* argv[])
 	if(exists_pk_class.exists_path("directory.txt", new_path))
 	{
 		std::cout << "Path is already written! [New arg]\n";
-		prgm_boot.Program_Entry(2, new_path, path_key);
+		prgm_boot.Program_Entry(1, new_path, path_key);
 		return -1;
 	}
 
 	file_oprs.append_file("directory.txt", path_key + " = " + new_path + " - 0\n");
-	file_check_prcs.File_checking_process(2, new_path, path_key);
+	file_check_prcs.File_checking_process(1, new_path, path_key);
 	return 0;
 }

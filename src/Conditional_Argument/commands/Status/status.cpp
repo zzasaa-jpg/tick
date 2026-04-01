@@ -6,11 +6,12 @@
 
 int Status(int argc, char* argv[])
 {
+	std::string error;
 	// User path mode ---------------------------------------------
 	if(argc > 2)
 	{
 		std::string user_path = argv[2];
-		std::string error = "Path does not exist! [Status arg]";
+		error = "Path does not exist! [Status arg]";
 		if(!condtnl_arg_cls.path_exists(user_path, error)) return -1;
 
 		std::cout << condtnl_arg_cls.read_status(user_path) << std::endl;

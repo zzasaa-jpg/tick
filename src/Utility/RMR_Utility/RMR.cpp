@@ -11,21 +11,21 @@ RMR_UTILITY_CLASS::RMR_UTILITY_CLASS(){};
 int RMR_UTILITY_CLASS::RMR(std::string file_path, std::string target, std::string put_value, std::string key)
 {
 	// Reading file -------------------------------------------------------
-	std::ifstream inFile(file_path);
-	if(!inFile)
+	std::ifstream read_file_stream(file_path);
+	if(!read_file_stream)
 	{
-		std::cout << "directory.txt file not found![RMR Utility]\n";
+		std::cout << "directory.txt file not found![RMR UTILITY]\n";
 		return -1;
 	}
 
 	std::vector<std::string> lines;
 	std::string line;
 
-	while(getline(inFile, line))
+	while(getline(read_file_stream, line))
 	{
 	    lines.push_back(line);
 	}
-	inFile.close();
+	read_file_stream.close();
 	// --------------------------------------------------------------------
 
 	// Modifying file content ---------------------------------------------
@@ -70,11 +70,11 @@ int RMR_UTILITY_CLASS::RMR(std::string file_path, std::string target, std::strin
 	// --------------------------------------------------------------------
 
 	// Write file ---------------------------------------------------------
-	std::ofstream out(file_path);
+	std::ofstream write_file_stream(file_path);
 
-	for(const auto& l : lines)
+	for(const auto& line : lines)
 	{
-	    out << l << "\n";
+	    write_file_stream << line << "\n";
 	}
 	// --------------------------------------------------------------------
 

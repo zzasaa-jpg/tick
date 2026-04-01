@@ -13,29 +13,34 @@
 File_checking_process_class file_check_prcs;
 File_checking_process_class::File_checking_process_class(){};
 
+std::string File_checking_process_class::directory_content()
+{
+	const char* directory_content_str = "default_path = ... - 0";
+	return directory_content_str;
+}
+
 //Checking the files exists or no!----------------------------------
-std::pair<int, std::vector<std::string>> Checking_file_exists(std::string& path) {
-	std::vector<std::string> File_Names_ = AFNs_class.get_all_file_names();
-	std::vector<std::string> Missing_Files_;
+std::pair<int, std::vector<std::string>> Checking_file_exists(std::string& du_flag_path) {
+	std::vector<std::string> File_Names_ = AFNs_class.get_all_file_names(), Missing_Files_Vector;
     	bool all_exist = true;
 
 	for (const auto& i : File_Names_) {
-		std::ifstream file(path + "/" + i);
+		std::ifstream file(du_flag_path + "/" + i);
 	        if (!file.is_open()) {
-			Missing_Files_.push_back(i);
+			Missing_Files_Vector.push_back(i);
 			all_exist = false;
 	        }
     	}
-	return {all_exist ? 1 : 0, Missing_Files_};
+	return {all_exist ? 1 : 0, Missing_Files_Vector};
 }
 //------------------------------------------------------------------
 
 // Generate missing files function for default and user path mode---
-void generate_missing_files(int status_first, std::vector<std::string>& status_second, int du_flag, std::string& du_flag_path, std::string& key)
+void generate_missing_files(int status_first, std::vector<std::string>& status_second, int du_flag, std::string& du_flag_path, std::string& path_key)
 {
 	if (status_first)
 	{
-		prgm_boot.Program_Entry(du_flag, du_flag_path, key);
+		prgm_boot.Program_Entry(du_flag, du_flag_path, path_key);
 	} else
 	{
 		/* Missing files automatic generate after than 'Program_Entry'
@@ -49,24 +54,26 @@ void generate_missing_files(int status_first, std::vector<std::string>& status_s
 				file_oprs.write_file(du_flag_path + "/" + file, 0);
 			}
 		}
-		prgm_boot.Program_Entry(du_flag, du_flag_path, key);
+		prgm_boot.Program_Entry(du_flag, du_flag_path, path_key);
 		//-----------------------------------------------------------
 	}
 }
 //-------------------------------------------------------------------
 
 //Files checking process---------------------------------------------
-void File_checking_process_class::File_checking_process(int du_flag, std::string& du_flag_path, std::string& key)
+void File_checking_process_class::File_checking_process(int du_flag, std::string& du_flag_path, std::string& path_key)
 {
 	if(std::filesystem::exists("directory.txt"))
 	{
-		/* If du_flag is two than did not call the default path.
+		/* If du_flag is true than did not call the default path.
 		 * Directly executing the generate_missing_files function
 		 * via user path. */
-		if (du_flag == 2)
+
+		std::cout << "[[" << du_flag << "]]\n";
+		if (du_flag)
 		{
 			auto status = Checking_file_exists(du_flag_path);
-			generate_missing_files(status.first, status.second, du_flag, du_flag_path, key);
+			generate_missing_files(status.first, status.second, du_flag, du_flag_path, path_key);
 			return;
 		}
 
@@ -93,7 +100,7 @@ void File_checking_process_class::File_checking_process(int du_flag, std::string
 			/* Executing the generate_missing_files function via
 			 * default path. */
 			auto status = Checking_file_exists(default_path);
-			generate_missing_files(status.first, status.second, du_flag, default_path, key);
+			generate_missing_files(status.first, status.second, du_flag, default_path, path_key);
 			//--------------------------------------------------
 		}
 	}
@@ -103,9 +110,8 @@ void File_checking_process_class::File_checking_process(int du_flag, std::string
 		std::ifstream file("directory.txt");
 		if(!file.is_open())
 		{
-			const std::string directory_content = "default_path = ... - 0";
 			std::cout << "Create File: directory.txt" << std::endl;
-			file_oprs.write_file("directory.txt", directory_content);
+			file_oprs.write_file("directory.txt", directory_content());
 		}
 		//----------------------------------------------------------
 	}

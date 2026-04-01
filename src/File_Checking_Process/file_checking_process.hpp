@@ -6,7 +6,9 @@
 class File_checking_process_class{
 	public:
 		File_checking_process_class();
-		void File_checking_process(int du_flag, std::string& path_, std::string& key);
+		// du means -> default path user path.
+		void File_checking_process(int du_flag, std::string& du_flag_path, std::string& path_key);
+		std::string directory_content();
 };
 
 extern File_checking_process_class file_check_prcs;

@@ -13,11 +13,10 @@ int Search(int argc, char* argv[])
 		return -1;
 	}
 
-	std::string search_path = argv[2];
-	std::string fileName = "directory.txt";
+	std::string search_path = argv[2], fileName = "directory.txt", error;
 
 	// Checking the search_path is exists or no ---------------------------
-	std::string error = "Path does not exist! [Search arg]";
+	error = "Path does not exist! [Search arg]";
 	if(!condtnl_arg_cls.path_exists(search_path, error)) return -1;
 
 	if(exists_pk_class.exists_path(fileName, search_path))

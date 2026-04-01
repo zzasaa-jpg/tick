@@ -10,8 +10,8 @@ int main(int argc, char* argv[]){
 		//Normal execution
 		/* To successfully execute the file checking process module,
 		 * the dummy path is an empty path. */
-		std::string Duplicate_path = "", de = "default_path";
-		file_check_prcs.File_checking_process(0, Duplicate_path, de);
+		std::string du_flag_path = "", path_key = "default_path";
+		file_check_prcs.File_checking_process(0, du_flag_path, path_key);
 		return 0;
 	}
 

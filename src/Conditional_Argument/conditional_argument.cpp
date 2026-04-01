@@ -48,17 +48,17 @@ int Conditional_Argument_Class::read_status(const std::string& path)
 
 std::string Conditional_Argument_Class::get_default_path()
 {
-    std::string content =
+    std::string file_content =
         rcfv_utility.Read_content_from_vector<std::string>("directory.txt");
 
-    return default_path_utility.default_path(content);
+    return default_path_utility.default_path(file_content);
 }
 // --------------------------------------------------------------------------------------------
 
 // Condition of arguments function-------------------------------------------------------------
 int Conditional_Argument_Class::condition_of_arguments(char* argv[], int argc)
 {
-	std::string arg = argv[1];
+	std::string arg = argv[1], error;
 	// Normalize argument ----------------------------------------------
 	transform(arg.begin(), arg.end(), arg.begin(), ::tolower);
 
@@ -67,8 +67,8 @@ int Conditional_Argument_Class::condition_of_arguments(char* argv[], int argc)
 	if(arg == "version" || arg == "v") return Version();
 
 	// Checking the directory.txt file ---------------------------------
-	std::string error_1 = "Directory.txt file does not exist! [arg]";
-	if(!path_exists("directory.txt", error_1)) return -1;
+	error = "Directory.txt file does not exist! [arg]";
+	if(!path_exists("directory.txt", error)) return -1;
 
 	if (arg == "status") return Status(argc, argv);
 	else if(arg == "clear" || arg == "reset") return Clear(argc, argv);

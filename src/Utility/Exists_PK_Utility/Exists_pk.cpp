@@ -18,8 +18,8 @@ fs::file_time_type cached_time;
 // Remove the spaces --------------------------------------
 std::string trim(const std::string& s)
 {
-    size_t start = s.find_first_not_of(" \t");
-    size_t end   = s.find_last_not_of(" \t");
+    size_t start = s.find_first_not_of(" \t"),
+	   end   = s.find_last_not_of(" \t");
 
     if(start == std::string::npos)
         return "";
@@ -46,10 +46,10 @@ void load_path_and_keys(const std::string& filename)
 {
 	path_cache.clear();
 
-	std::ifstream file(filename);
+	std::ifstream read_file_stream(filename);
 	std::string line;
 
-	while(std::getline(file, line))
+	while(std::getline(read_file_stream, line))
 	{
 		size_t pos = line.find('=');
 
@@ -75,10 +75,10 @@ void load_path_and_keys(const std::string& filename)
 bool Exists_pk_class::exists_path(const std::string& filename, const std::string& targetPath)
 {
 	// Last write time ------------------------------------------
-	fs::file_time_type file_time = fs::last_write_time(filename);
+	fs::file_time_type last_write_time_of_filename = fs::last_write_time(filename);
 
 	// File time is not eqaul to cached time than load new paths
-	if(path_cache.empty() || file_time != cached_time)
+	if(path_cache.empty() || last_write_time_of_filename != cached_time)
 	{
 		load_path_and_keys(filename);
 	}
@@ -91,10 +91,10 @@ bool Exists_pk_class::exists_path(const std::string& filename, const std::string
 bool Exists_pk_class::exists_key(const std::string& filename, const std::string& targetKey)
 {
 	// Last write time ------------------------------------------
-	fs::file_time_type file_time = fs::last_write_time(filename);
+	fs::file_time_type last_write_time_of_filename = fs::last_write_time(filename);
 
-	// File time is not eqaul to cached time than load new paths
-	if(key_cache.empty() || file_time != cached_time)
+	// File time is not eqaul to cached time than load new keys
+	if(key_cache.empty() || last_write_time_of_filename != cached_time)
 	{
 		load_path_and_keys(filename);
 	}

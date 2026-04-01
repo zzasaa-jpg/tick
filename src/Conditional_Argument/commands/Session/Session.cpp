@@ -5,14 +5,14 @@
 
 int Session(int argc, char* argv[])
 {
-	std::string base_path = "";
+	std::string base_path = "", error;
 	if(argc > 2)
 	{
 		// User path mode -----------------------------------
 		base_path = argv[2];
 
 		// Checking the path is exists or no ----------------
-		std::string error = "Path does not exist! [Session arg]";
+		error = "Path does not exist! [Session arg]";
 		if(!condtnl_arg_cls.path_exists(base_path, error)) return -1;
 
 		// Reading the content of user path bool.txt --------
@@ -51,10 +51,10 @@ int Session(int argc, char* argv[])
 	}
 
 	//Time pointer initialization--------------------------------
-	time_t now = time(0);
+	time_t time_now = time(0);
 	//-----------------------------------------------------------
 
 	int time_1 = rcfv_utility.Read_content_from_vector<int>(base_path + "/t1.txt");
-	print_timer_utility.print_timer(now - time_1, "Session Time: ");
+	print_timer_utility.print_timer(time_now - time_1, "Session Time: ");
 	return 1;
 }

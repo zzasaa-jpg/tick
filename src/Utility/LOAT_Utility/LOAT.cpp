@@ -11,29 +11,29 @@ void LOAT_UTILITY_CLASS::loat()
 {
 	// Reading file ---------------------------------------------
 	std::string file_name = "directory.txt";
-	std::ifstream file(file_name);
-	if(!file)
+	std::ifstream read_file_stream(file_name);
+	if(!read_file_stream)
 	{
-		std::cout << "File not found![LOAT Utility]\n";
+		std::cout << "File not found![LOAT UTILITY]\n";
 		return;
 	}
 
-	std::vector<std::string> content;
+	std::vector<std::string> file_content;
 	std::string line;
-	while(std::getline(file, line))
+	while(std::getline(read_file_stream, line))
 	{
-		content.push_back(line);
+		file_content.push_back(line);
 	}
-	file.close();
+	read_file_stream.close();
 	// ----------------------------------------------------------
 
 	// Print active timers --------------------------------------
 	bool found = false;
-	for(auto &con : content)
+	for(auto &content : file_content)
 	{
-		if(con.find("- 1") != std::string::npos)
+		if(content.find("- 1") != std::string::npos)
 		{
-			std::cout << con << std::endl;
+			std::cout << content << std::endl;
 			found = true;
 		}
 	}

@@ -2,6 +2,7 @@
 #include "../../conditional_argument.hpp"
 #include "../../../All_file_names/All_file_names.hpp"
 #include "../../../File_Operations/file_operations.hpp"
+#include "../../../File_Checking_Process/file_checking_process.hpp"
 
 #include <iostream>
 #include <string>
@@ -9,8 +10,6 @@
 int Clear(int argc, char* argv[])
 {
 	std::vector<std::string> Clearing_Files = AFNs_class.get_all_file_names();
-	const std::string directory_content = "default_path = ... - 0";
-
 	std::string base_path;
 
 	if(argc > 2)
@@ -42,16 +41,16 @@ int Clear(int argc, char* argv[])
 
 	for (auto& file : Clearing_Files)
 	{
-		std::string full =  base_path + "/" + file;
+		std::string full_path = base_path + "/" + file;
 
 		if(file == "directory.txt")
 		{
-			file_oprs.write_file(full, directory_content);
+			file_oprs.write_file(full_path, file_check_prcs.directory_content());
 		} else
 		{
-			file_oprs.write_file(full, 0);
+			file_oprs.write_file(full_path, 0);
 		}
-		std::cout << "File Cleared: " << full << std::endl;
+		std::cout << "File Cleared: " << full_path << std::endl;
 	}
 	return 1;
 }

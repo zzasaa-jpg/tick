@@ -46,14 +46,13 @@ int Default(int argc, char* argv[])
 	}
 
 	// Set the default path --------------------------------------------
-	std::string Duplicate_path = "", de = "default_path";
-	std::string content = rcfv_utility.Read_content_from_vector<std::string>("directory.txt");
+	std::string du_flag_path = "", path_key = "default_path", file_content = rcfv_utility.Read_content_from_vector<std::string>("directory.txt");
 
 	// If timer is active than did not set the default path just return -1
 	if (condtnl_arg_cls.get_default_path() != "..." &&
 	condtnl_arg_cls.read_status(condtnl_arg_cls.get_default_path())) { return -1; }
 
-	rmr_utility.RMR("directory.txt", content.find("...") != std::string::npos ? "..." : condtnl_arg_cls.get_default_path(),default_path, de);
-	file_check_prcs.File_checking_process(0, Duplicate_path, de);
+	rmr_utility.RMR("directory.txt", file_content.find("...") != std::string::npos ? "..." : condtnl_arg_cls.get_default_path(), default_path, path_key);
+	file_check_prcs.File_checking_process(0, du_flag_path, path_key);
 	return 0;
 }
