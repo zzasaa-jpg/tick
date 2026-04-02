@@ -69,7 +69,6 @@ void File_checking_process_class::File_checking_process(int du_flag, std::string
 		 * Directly executing the generate_missing_files function
 		 * via user path. */
 
-		std::cout << "[[" << du_flag << "]]\n";
 		if (du_flag)
 		{
 			auto status = Checking_file_exists(du_flag_path);
@@ -82,8 +81,7 @@ void File_checking_process_class::File_checking_process(int du_flag, std::string
 		//----------------------------------------------------------
 
 		// Checking the default path is exists or no ---------------
-		int res = file_content.find("...");
-		if (res != std::string::npos)
+		if (file_content.find("...") != std::string::npos)
 		{
 			std::cout << "Set the Default Path!\n";
 			std::cout << "Checkout cpp.exe help\n";
