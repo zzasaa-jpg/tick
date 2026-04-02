@@ -1,5 +1,6 @@
 #include "./RMR.hpp"
 #include "../../File_Operations/file_operations.hpp"
+#include "../Trim_Spaces_Utility/Trim_spaces.hpp"
 
 #include <string>
 #include <vector>
@@ -37,8 +38,7 @@ int RMR_UTILITY_CLASS::RMR(std::string file_path, std::string target, std::strin
 		    std::string found_key = content.substr(0, pos);
 
 		    // trim spaces
-		    found_key.erase(0, found_key.find_first_not_of(" "));
-		    found_key.erase(found_key.find_last_not_of(" ") + 1);
+		    trim_spaces_class.trim_spaces(found_key);
 
 		    if(found_key == key)
 		    {
