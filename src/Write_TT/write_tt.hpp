@@ -6,7 +6,7 @@
 class Write_TT{
 	public:
 		Write_TT();
-		void Write_total_time(int du_flag, std::string& du_flag_path);
+		void Write_total_time(int du_flag, const std::string& du_flag_path);
 };
 
 extern Write_TT wrt_tt;

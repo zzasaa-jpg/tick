@@ -14,6 +14,8 @@ class RCFV_UTILITY_CLASS
 		T Read_content_from_vector(const std::string& file_path)
 		{
 			std::vector<std::string> file_content = file_oprs.read_file(file_path);
+
+			// Handle string return type
 			if constexpr (std::is_same_v<T, std::string>)
 			{
 				std::string str_value;
@@ -23,7 +25,9 @@ class RCFV_UTILITY_CLASS
 				}
 				return str_value;
 			}
-			else if constexpr (std::is_same_v<T, int>)
+
+			// Handle all integer types (int, long, long long etc.)
+			else if constexpr (std::is_integral_v<T>)
 			{
 				if(file_content.empty())
 				{
@@ -32,7 +36,7 @@ class RCFV_UTILITY_CLASS
 				}
 				try
 				{
-					return std::stoi(file_content[0]);
+					return static_cast<T>(std::stoll(file_content[0]));
 				}
 				catch(const std::invalid_argument&)
 				{
@@ -44,6 +48,11 @@ class RCFV_UTILITY_CLASS
 					std::cout << "Number out of range in file.[RCFV UTILITY]: " << file_path << "\n";
 					return -1;
 				}
+			}
+			// Unsupported type protection
+			else
+			{
+				static_assert(!sizeof(T), "Unsupported type used in [RCFV UTILITY]");
 			}
 		}
 };

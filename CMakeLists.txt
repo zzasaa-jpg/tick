@@ -21,6 +21,7 @@ add_executable(cpp
     src/Utility/Dir_Permission_Checker_Utility/dir_permission.cpp
     src/Utility/REMOVE_SLASH_UTILITY/Remove_Slash.cpp
     src/Utility/Print_Timer_Utility/Print_Timer.cpp
+    src/Utility/Decide_du_path_utility/decide_du_path.cpp
     src/Conditional_Argument/commands/Status/status.cpp
     src/Conditional_Argument/commands/Clear/Clear.cpp
     src/Conditional_Argument/commands/Help/Help.cpp

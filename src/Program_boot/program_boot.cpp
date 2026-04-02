@@ -3,6 +3,7 @@
 #include "../File_Operations/file_operations.hpp"
 #include "../Write_TT/write_tt.hpp"
 #include "../Utility/RMR_Utility/RMR.hpp"
+#include "../Utility/Decide_du_path_utility/decide_du_path.hpp"
 
 #include <vector>
 #include <iostream>
@@ -25,13 +26,6 @@ void get_Seconds(const std::string& file_path)
 }
 //------------------------------------------------------------------
 
-// Helper function to decide default or user path according to du_flag
-std::string decide_default_or_user_path(int du_flag, const std::string& du_flag_path, const std::string& file_path)
-{
-	return du_flag == 1 ? du_flag_path + file_path : condtnl_arg_cls.get_default_path() + file_path;
-}
-// -----------------------------------------------------------------
-
 // Helper function for user path timer active status change according to du_flag
 void User_path_timer_active_status_change(int du_flag, const std::string& target, const std::string& put_value, const std::string& path_key)
 {
@@ -49,7 +43,7 @@ void User_path_timer_active_status_change(int du_flag, const std::string& target
 void Program_boot::Program_Entry(int du_flag, std::string& du_flag_path, std::string& path_key)
 {
 	std::cout << du_flag << du_flag_path << std::endl;
-	std::string bool_txt_file_content = decide_default_or_user_path(du_flag, du_flag_path, Paths::bool_txt_path);
+	std::string bool_txt_file_content = decide_du_path_class.decide_du_path(du_flag, du_flag_path, Paths::bool_txt_path);
 	std::cout << bool_txt_file_content << std::endl;
 
 	//Bool value read-------------------------------------------
@@ -65,7 +59,7 @@ void Program_boot::Program_Entry(int du_flag, std::string& du_flag_path, std::st
 	std::string t1_txt_file_content, t2_txt_file_content, target, put_value;
 	if (bool_value == false){
 		// Store the current time inside t1.txt and toggle the bool value
-		t1_txt_file_content = decide_default_or_user_path(du_flag, du_flag_path, Paths::t1_txt_path);
+		t1_txt_file_content = decide_du_path_class.decide_du_path(du_flag, du_flag_path, Paths::t1_txt_path);
 		get_Seconds(t1_txt_file_content);
 
 		// du_flag according toggle the active status in directory file
@@ -77,7 +71,7 @@ void Program_boot::Program_Entry(int du_flag, std::string& du_flag_path, std::st
 	} else {
 		/*Store the finished time inside t2.txt and toggle the bool value
 		 *and Write the Total Time*/
-		t2_txt_file_content = decide_default_or_user_path(du_flag, du_flag_path, Paths::t2_txt_path);
+		t2_txt_file_content = decide_du_path_class.decide_du_path(du_flag, du_flag_path, Paths::t2_txt_path);
 		get_Seconds(t2_txt_file_content);
 
 		// du_flag according toggle the active status in directory file
