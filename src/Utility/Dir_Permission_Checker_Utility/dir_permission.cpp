@@ -4,13 +4,16 @@
 #include <random>
 #include <iostream>
 
+// Generating the random name ---------------------------------------
 std::string DirPermissionChecker::randomName()
 {
 	static std::mt19937 rng(std::random_device{}());
 	static std::uniform_int_distribution<int> dist(100000, 999999);
 	return ".perm_test_" + std::to_string(dist(rng));
 }
+// ------------------------------------------------------------------
 
+// Print directory permission ---------------------------------------
 bool DirPermissionChecker::Print_Permission(const DirPermission& res, const fs::path& dirPath)
 {
 	bool ok = true;
@@ -33,7 +36,9 @@ bool DirPermissionChecker::Print_Permission(const DirPermission& res, const fs::
 	}
 	return ok;
 }
+// ------------------------------------------------------------------
 
+// Checking the directory path permissions --------------------------
 DirPermission DirPermissionChecker::check(const fs::path& dirPath)
 {
 	DirPermission result{false, false, false};
@@ -73,3 +78,4 @@ DirPermission DirPermissionChecker::check(const fs::path& dirPath)
 
 	return result;
 }
+// ------------------------------------------------------------------

@@ -4,15 +4,16 @@
 REMOVE_SLASH_UTILITY_CLASS remove_slash_utility;
 REMOVE_SLASH_UTILITY_CLASS::REMOVE_SLASH_UTILITY_CLASS() {};
 
+// The given path is remove the slash and normalize the path ------------------
 std::string REMOVE_SLASH_UTILITY_CLASS::remove_slash(std::string& path)
 {
-	// Convert '\' to '/'
+	// Convert '\' to '/' -------------------
 	for (char &c : path)
 	{
 		if(c == '\\') c = '/';
 	}
 
-	// Remove duplicates '/'
+	// Remove duplicates '/' ----------------
 	std::string result;
 	bool slash = false;
 
@@ -32,10 +33,11 @@ std::string REMOVE_SLASH_UTILITY_CLASS::remove_slash(std::string& path)
 		}
 	}
 
-	// Remove last slash
+	// Remove last slash --------------------
 	while(!result.empty() && (result.back() == '/' || result.back() == '\\'))
 	{
         	result.pop_back();
 	}
 	return result;
 }
+// ----------------------------------------------------------------------------

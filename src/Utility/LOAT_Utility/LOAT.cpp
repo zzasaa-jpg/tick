@@ -1,39 +1,31 @@
 #include "./LOAT.hpp"
 #include "../../Utility/RCFV_Utility/RCFV_Utility.hpp"
+#include "../../../src/Utility/RCFV_Utility/RCFV_Utility.hpp"
 
 #include <fstream>
 #include <string>
+#include <sstream>
 
 LOAT_UTILITY_CLASS loat_utility;
 LOAT_UTILITY_CLASS::LOAT_UTILITY_CLASS(){};
 
+// List of active timers print --------------------------------------
 void LOAT_UTILITY_CLASS::loat()
 {
 	// Reading file ---------------------------------------------
-	std::string file_name = "directory.txt";
-	std::ifstream read_file_stream(file_name);
-	if(!read_file_stream)
-	{
-		std::cout << "File not found![LOAT UTILITY]\n";
-		return;
-	}
+	std::string file_content = rcfv_utility.Read_content_from_vector<std::string>("directory.txt");
 
-	std::vector<std::string> file_content;
+	// Split into lines -----------------------------------------
+	std::stringstream ss(file_content);
 	std::string line;
-	while(std::getline(read_file_stream, line))
-	{
-		file_content.push_back(line);
-	}
-	read_file_stream.close();
-	// ----------------------------------------------------------
 
-	// Print active timers --------------------------------------
 	bool found = false;
-	for(auto &content : file_content)
+	// Print active timers --------------------------------------
+	while(std::getline(ss, line))
 	{
-		if(content.find("- 1") != std::string::npos)
+		if(line.find("- 1") != std::string::npos)
 		{
-			std::cout << content << std::endl;
+			std::cout << line << std::endl;
 			found = true;
 		}
 	}
@@ -41,3 +33,4 @@ void LOAT_UTILITY_CLASS::loat()
 	if(!found) std::cout << "No active timers!\n";
 	// ----------------------------------------------------------
 }
+// ------------------------------------------------------------------

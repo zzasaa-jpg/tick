@@ -15,7 +15,7 @@ class RCFV_UTILITY_CLASS
 		{
 			std::vector<std::string> file_content = file_oprs.read_file(file_path);
 
-			// Handle string return type
+			// Handle string return type ------------------------------------
 			if constexpr (std::is_same_v<T, std::string>)
 			{
 				std::string str_value;
@@ -26,7 +26,7 @@ class RCFV_UTILITY_CLASS
 				return str_value;
 			}
 
-			// Handle all integer types (int, long, long long etc.)
+			// Handle all integer types (int, long, long long etc.) ---------
 			else if constexpr (std::is_integral_v<T>)
 			{
 				if(file_content.empty())
@@ -49,7 +49,7 @@ class RCFV_UTILITY_CLASS
 					return -1;
 				}
 			}
-			// Unsupported type protection
+			// Unsupported type protection ----------------------------------
 			else
 			{
 				static_assert(!sizeof(T), "Unsupported type used in [RCFV UTILITY]");

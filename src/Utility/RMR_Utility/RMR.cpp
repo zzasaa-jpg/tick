@@ -1,83 +1,75 @@
 #include "./RMR.hpp"
 #include "../../File_Operations/file_operations.hpp"
 #include "../Trim_Spaces_Utility/Trim_spaces.hpp"
+#include "../RCFV_Utility/RCFV_Utility.hpp"
 
 #include <string>
 #include <vector>
 #include <iostream>
+#include <sstream>
 
 RMR_UTILITY_CLASS rmr_utility;
 RMR_UTILITY_CLASS::RMR_UTILITY_CLASS(){};
 
+// RMR stands for read, modify, rewrite according to file_path, target, put_value, key.
 int RMR_UTILITY_CLASS::RMR(std::string file_path, std::string target, std::string put_value, std::string key)
 {
 	// Reading file -------------------------------------------------------
-	std::ifstream read_file_stream(file_path);
-	if(!read_file_stream)
-	{
-		std::cout << "directory.txt file not found![RMR UTILITY]\n";
-		return -1;
-	}
+	std::string file_content = rcfv_utility.Read_content_from_vector<std::string>("directory.txt");
 
-	std::vector<std::string> lines;
+	// Split into lines ---------------------------------------------------
+	std::stringstream ss(file_content);
 	std::string line;
-
-	while(getline(read_file_stream, line))
-	{
-	    lines.push_back(line);
-	}
-	read_file_stream.close();
-	// --------------------------------------------------------------------
+	std::vector<std::string> lines_vector;
 
 	// Modifying file content ---------------------------------------------
-	for(auto &content : lines)
+	while(getline(ss, line))
 	{
-		size_t pos = content.find('=');
-		if(pos != std::string::npos)
-		{
-		    std::string found_key = content.substr(0, pos);
+	    size_t pos = line.find('=');
+	    if(pos != std::string::npos)
+	    {
+		    std::string found_key = line.substr(0, pos);
 
-		    // trim spaces
+		    // trim spaces --------------------------------------------
 		    trim_spaces_class.trim_spaces(found_key);
 
 		    if(found_key == key)
 		    {
-			// exact match found
-			size_t pos = content.find(target);
+			// exact match found ----------------------------------
+			size_t pos = line.find(target);
 
 			// If target is only change status than last character only re-write.
 			if(target == "1" || target == "0")
 			{
-				if(content.back() == '1')
+				if(line.back() == '1')
 				{
-					content.back() = '0';
+					line.back() = '0';
 				} else
 				{
-					content.back() = '1';
+					line.back() = '1';
 				}
 			}
-			// Target length and pos according re-write.
+			// Target length and pos according re-write. ----------
 			else
 			{
 			    if(pos != std::string::npos)
 			    {
-				content.replace(pos, target.length(), put_value);
+				line.replace(pos, target.length(), put_value);
 			    }
 			}
 		    }
 		}
+		lines_vector.push_back(line);
 	}
 	// --------------------------------------------------------------------
 
 	// Write file ---------------------------------------------------------
 	std::ofstream write_file_stream(file_path);
-
-	for(const auto& line : lines)
+	for(const auto &content : lines_vector)
 	{
-	    write_file_stream << line << "\n";
+		write_file_stream << content << "\n";
 	}
 	// --------------------------------------------------------------------
-
 	return 0;
 }
-
+// ----------------------------------------------------------------------------

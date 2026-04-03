@@ -13,7 +13,6 @@ Exists_pk_class exists_pk_class;
 Exists_pk_class::Exists_pk_class(){};
 
 std::unordered_set<std::string> path_cache, key_cache;
-
 fs::file_time_type cached_time;
 
 // Extract base path from original path -------------------
@@ -28,8 +27,7 @@ std::string extract_base_path(const std::string& path)
 }
 // --------------------------------------------------------
 
-// If directory.txt have a new content than load new paths
-// and keys
+// If directory.txt have a new content than load new paths and keys
 void load_path_and_keys(const std::string& filename)
 {
 	path_cache.clear();
@@ -55,7 +53,6 @@ void load_path_and_keys(const std::string& filename)
 			key_cache.insert(key_);
 		}
 	}
-
 	cached_time = fs::last_write_time(filename);
 }
 //---------------------------------------------------------
