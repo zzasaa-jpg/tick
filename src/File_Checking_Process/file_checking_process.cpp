@@ -4,6 +4,7 @@
 #include "../File_Operations/file_operations.hpp"
 #include "../Utility/RCFV_Utility/RCFV_Utility.hpp"
 #include "../Utility/Default_Path_Utility/Default_Path.hpp"
+#include "../Conditional_Argument/conditional_argument.hpp"
 
 #include <vector>
 #include <utility>
@@ -80,8 +81,11 @@ void File_checking_process_class::File_checking_process(int du_flag, std::string
 		std::string file_content = rcfv_utility.Read_content_from_vector<std::string>("directory.txt");
 		//----------------------------------------------------------
 
-		// Checking the default path is exists or no ---------------
-		if (file_content.find("...") != std::string::npos)
+		/* Check whether the default path exists.
+		 * If get_default_path() returns "...", it indicates that the directory
+		 * configuration file may be missing, modified, or corrupted.
+		 * In that case, the user should verify or regenerate the directory file.*/
+		if (file_content.find("...") != std::string::npos || condtnl_arg_cls.get_default_path() == "...")
 		{
 			std::cout << "Set the Default Path!\n";
 			std::cout << "Checkout cpp.exe help\n";

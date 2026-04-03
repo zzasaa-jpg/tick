@@ -101,3 +101,28 @@ tick
 |  cpp.exe help          | Show this help                                     |
 |  cpp.exe version       | Print the tool current version                     |
 |  cpp.exe search        | Search specific timer path in directory file       |
+
+---
+
+## ⚠️ Caution
+
+The program generates several internal files to store session and time data.
+
+**Do not modify or delete these generated files manually.**
+
+If any generated file is modified or deleted, the program may:
+- Crash
+- Produce unexpected behavior
+- Lose previously stored time data
+
+This happens because the program depends on the structure of these generated files.
+
+### Recovery
+
+If this situation occurs accidentally:
+
+1. Go to the directory where the compiled program exists.
+2. Manually delete all generated files created by the program.
+3. Start the program again so it can regenerate the required files.
+
+---
