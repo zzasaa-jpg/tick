@@ -87,21 +87,21 @@ tick
 
 ## Tool commands
 
-|  Commands                   | Description                                        |
-|-----------------------------|----------------------------------------------------|
-|  cpp.exe                    | Start / Stop timer                                 |
-|  cpp.exe status             | Show running status at default path                |
-|  cpp.exe clear/reset        | Reset all time data at default path                |
-|  cpp.exe default            | Set default path                                   |
-|  cpp.exe new_ path key      | Set user path                                      |
-|  cpp.exe status path        | Show running status at user path                   |
-|  cpp.exe clear/reset path   | Reset all time data at user path                   |
-|  cpp.exe list               | List of active timers                              |
-|  cpp.exe session            | Show default path session time with out timer stop |
-|  cpp.exe session path       | Show user path session time with out timer stop    |
-|  cpp.exe help               | Show this help                                     |
-|  cpp.exe version            | Print the tool current version                     |
-|  cpp.exe search             | Search specific timer path in directory file       |
+|  Commands                      | Description                                        |
+|--------------------------------|----------------------------------------------------|
+|  cpp.exe                       | Start / Stop timer                                 |
+|  cpp.exe status                | Show running status at default path                |
+|  cpp.exe clear/reset           | Reset all time data at default path                |
+|  cpp.exe default               | Set default path                                   |
+|  cpp.exe new_ `<path>` `<key>` | Set user path                                      |
+|  cpp.exe status `<path>`       | Show running status at user path                   |
+|  cpp.exe clear/reset `<path>`  | Reset all time data at user path                   |
+|  cpp.exe list                  | List of active timers                              |
+|  cpp.exe session               | Show default path session time with out timer stop |
+|  cpp.exe session `<path>`      | Show user path session time with out timer stop    |
+|  cpp.exe help                  | Show this help                                     |
+|  cpp.exe version               | Print the tool current version                     |
+|  cpp.exe search                | Search specific timer path in directory file       |
 
 ---
 
