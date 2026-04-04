@@ -7,8 +7,7 @@ class Exists_pk_class
 {
 	public:
 		Exists_pk_class();
-		bool exists_path(const std::string& filename, std::string& targetPath);
-		bool exists_key(const std::string& filename, std::string& targetKey);
+		bool exists_pk(const std::string& filename, std::string& targetPK, bool PK);
 };
 
 extern Exists_pk_class exists_pk_class;

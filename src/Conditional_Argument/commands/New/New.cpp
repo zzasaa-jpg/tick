@@ -60,19 +60,19 @@ int New(int argc, char* argv[])
 	new_path = remove_slash_utility.remove_slash(new_path);
 
 	// Checking the user path key is exists or no ----------------------
-	if(exists_pk_class.exists_key("directory.txt", path_key) == false){
+	if(exists_pk_class.exists_pk("directory.txt", path_key, false) == false){
 		bool running = true;
 		while(running){
 			// If user path and key is not exists in directory file than terminate the
 			// while loop move next execution
 			if(
-				exists_pk_class.exists_key("directory.txt", path_key) == false &&
-				exists_pk_class.exists_path("directory.txt", new_path) == false)
+				exists_pk_class.exists_pk("directory.txt", path_key, false) == false &&
+				exists_pk_class.exists_pk("directory.txt", new_path, true) == false)
 			{
 				running = false;
 			}
 			// User path key is invalid return -1 -------------------------------------
-			else if(exists_pk_class.exists_key("directory.txt", path_key) == false)
+			else if(exists_pk_class.exists_pk("directory.txt", path_key, false) == false)
 			{
 				std::cout << "Invalid key! [New arg]\n";
 				return -1;
@@ -113,7 +113,7 @@ int New(int argc, char* argv[])
 	}
 
 	// Checking whether a directory file contains a new_path or not ----
-	if(exists_pk_class.exists_path("directory.txt", new_path))
+	if(exists_pk_class.exists_pk("directory.txt", new_path, true))
 	{
 		std::cout << "Path is already written! [New arg]\n";
 		prgm_boot.Program_Entry(1, new_path, path_key);

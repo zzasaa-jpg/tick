@@ -57,33 +57,26 @@ void load_path_and_keys(const std::string& filename)
 }
 //---------------------------------------------------------
 
-bool Exists_pk_class::exists_path(const std::string& filename, std::string& targetPath)
+bool Exists_pk_class::exists_pk(const std::string& filename, std::string& targetPK, bool PK)
 {
 	// Last write time ------------------------------------------
 	fs::file_time_type last_write_time_of_filename = fs::last_write_time(filename);
 
-	// File time is not eqaul to cached time than load new paths
-	if(path_cache.empty() || last_write_time_of_filename != cached_time)
+	// File time is not eqaul to cached time than load new paths & keys
+	if(key_cache.empty() || path_cache.empty() || last_write_time_of_filename != cached_time)
 	{
 		load_path_and_keys(filename);
 	}
 
-	std::string base_target = trim_spaces_class.trim_spaces(targetPath); // Trim the target path
-	return path_cache.find(base_target) != path_cache.end();
-}
-
-
-bool Exists_pk_class::exists_key(const std::string& filename, std::string& targetKey)
-{
-	// Last write time ------------------------------------------
-	fs::file_time_type last_write_time_of_filename = fs::last_write_time(filename);
-
-	// File time is not eqaul to cached time than load new keys
-	if(key_cache.empty() || last_write_time_of_filename != cached_time)
+	if(PK)
 	{
-		load_path_and_keys(filename);
+		// Trim the target path
+		std::string base_target = trim_spaces_class.trim_spaces(targetPK);
+		return path_cache.find(base_target) != path_cache.end();
+	} else
+	{
+		// Trim the target key
+		std::string base_key = trim_spaces_class.trim_spaces(targetPK);
+		return key_cache.find(base_key) != key_cache.end();
 	}
-
-	std::string base_key = trim_spaces_class.trim_spaces(targetKey); // Trim the target key
-	return key_cache.find(base_key) != key_cache.end();
 }

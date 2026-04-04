@@ -19,7 +19,7 @@ int Search(int argc, char* argv[])
 	error = "Path does not exist! [Search arg]";
 	if(!condtnl_arg_cls.path_exists(search_path, error)) return -1;
 
-	if(exists_pk_class.exists_path(fileName, search_path))
+	if(exists_pk_class.exists_pk(fileName, search_path, true))
 	{
 		std::cout << "Path is found! [Search arg]\n";
 		return 1;

@@ -39,7 +39,7 @@ int Default(int argc, char* argv[])
 	default_path = remove_slash_utility.remove_slash(default_path);
 
 	// Checking whether a directory file contains a default path or not
-	if(exists_pk_class.exists_path("directory.txt", default_path))
+	if(exists_pk_class.exists_pk("directory.txt", default_path, true))
 	{
 		std::cout << "Path is already written!!\n";
 		return -1;
