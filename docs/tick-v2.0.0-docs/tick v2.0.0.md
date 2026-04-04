@@ -86,7 +86,7 @@ tick
 
 ## Tool commands
 
-|  Commands              | Usages                                             |
+|  Commands              | Description                                        |
 |------------------------|----------------------------------------------------|
 |  cpp.exe               | Start / Stop timer                                 |
 |  cpp.exe status        | Show running status at default path                |

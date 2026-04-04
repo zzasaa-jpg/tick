@@ -7,7 +7,7 @@ int Help()
 {
 	std::cout << "Usage:\n";
 	std::cout << "*-----------------------------------------------------------------------------*\n";
-	std::cout << "|  Commands              | Usages                                             |\n";
+	std::cout << "|  Commands              | Description                                        |\n";
 	std::cout << "|------------------------|----------------------------------------------------|\n";
 	std::cout << "|  cpp.exe               | Start / Stop timer                                 |\n";
 	std::cout << "|  cpp.exe status        | Show running status at default path                |\n";

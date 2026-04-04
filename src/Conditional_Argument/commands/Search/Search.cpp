@@ -15,7 +15,7 @@ int Search(int argc, char* argv[])
 
 	std::string search_path = argv[2], fileName = "directory.txt", error;
 
-	// Checking the search_path is exists or no ---------------------------
+	// Checking the search_path is exists or not --------------------------
 	error = "Path does not exist! [Search arg]";
 	if(!condtnl_arg_cls.path_exists(search_path, error)) return -1;
 

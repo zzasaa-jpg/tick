@@ -16,7 +16,8 @@ int Default(int argc, char* argv[])
 		std::cout << "Default path is require!" << std::endl;
 		return -1;
 	}
-	std::string default_path = argv[2];
+	std::string default_path = argv[2], error, du_flag_path = "", path_key = "default_path",
+		file_content = rcfv_utility.Read_content_from_vector<std::string>("directory.txt");
 
 	// Normalize default_path ------------------------------------------
 	#ifdef _WIN32
@@ -24,7 +25,7 @@ int Default(int argc, char* argv[])
 	#endif
 
 	// Checking the default_path is exists or no -----------------------
-	std::string error = "Path does not exist! [Default arg]";
+	error = "Path does not exist! [Default arg]";
 	if(!condtnl_arg_cls.path_exists(default_path, error)) return -1;
 
 	// Checking the default_path is directory or not -------------------
@@ -45,13 +46,10 @@ int Default(int argc, char* argv[])
 		return -1;
 	}
 
-	// Set the default path --------------------------------------------
-	std::string du_flag_path = "", path_key = "default_path", file_content = rcfv_utility.Read_content_from_vector<std::string>("directory.txt");
-
 	// If timer is active than did not set the default path just return -1
-	if (condtnl_arg_cls.get_default_path() != "..." &&
-	condtnl_arg_cls.read_status(condtnl_arg_cls.get_default_path())) { return -1; }
+	if (condtnl_arg_cls.get_default_path() != "..." && condtnl_arg_cls.read_status(condtnl_arg_cls.get_default_path())) { return -1; }
 
+	// Set the default path --------------------------------------------
 	rmr_utility.RMR("directory.txt", file_content.find("...") != std::string::npos ? "..." : condtnl_arg_cls.get_default_path(), default_path, path_key);
 	file_check_prcs.File_checking_process(0, du_flag_path, path_key);
 	return 0;

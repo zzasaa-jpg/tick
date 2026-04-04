@@ -6,21 +6,45 @@
 #include "../../../File_Checking_Process/file_checking_process.hpp"
 #include "../../../Utility/Dir_Permission_Checker_Utility/dir_permission.hpp"
 #include "../../../Utility/REMOVE_SLASH_UTILITY/Remove_Slash.hpp"
+#include "../../../Utility/Trim_Spaces_Utility/Trim_spaces.hpp"
 
 #include <iostream>
 #include <string>
 #include <vector>
 #include <algorithm>
 
-std::string trim0_(const std::string& s)
+bool is_duplicate_key(const std::string& path_key, const std::string& new_path)
 {
-    size_t start = s.find_first_not_of(" \t"),
-	   end   = s.find_last_not_of(" \t");
+	std::ifstream read_file_stream("directory.txt");
+	std::string line;
+	while(std::getline(read_file_stream, line))
+	{
+		size_t equal_pos = line.find('=');
+		if(equal_pos == std::string::npos)
+			continue;
 
-    if(start == std::string::npos)
-        return "";
+		size_t dash_pos = line.find('-');
+		if(dash_pos == std::string::npos)
+			continue;
 
-    return s.substr(start, end - start + 1);
+		// Extract key
+		std::string found_key = line.substr(0, equal_pos);
+		trim_spaces_class.trim_spaces(found_key);
+
+		if(found_key != path_key)
+			continue;
+
+		// Extract stored path
+		std::string stored_path = line.substr(equal_pos + 1, dash_pos - equal_pos - 1);
+		stored_path = trim_spaces_class.trim_spaces(stored_path);
+
+		if(stored_path != new_path)
+		{
+			std::cout << path_key << " -> This key is not user path key OR same key exists in directory file [New arg]\n";
+			return true;
+		}
+	}
+	return false;
 }
 
 int New(int argc, char* argv[])
@@ -59,58 +83,21 @@ int New(int argc, char* argv[])
 	// Remove duplicate slash ------------------------------------------
 	new_path = remove_slash_utility.remove_slash(new_path);
 
-	// Checking the user path key is exists or no ----------------------
-	if(exists_pk_class.exists_pk("directory.txt", path_key, false) == false){
-		bool running = true;
-		while(running){
-			// If user path and key is not exists in directory file than terminate the
-			// while loop move next execution
-			if(
-				exists_pk_class.exists_pk("directory.txt", path_key, false) == false &&
-				exists_pk_class.exists_pk("directory.txt", new_path, true) == false)
-			{
-				running = false;
-			}
-			// User path key is invalid return -1 -------------------------------------
-			else if(exists_pk_class.exists_pk("directory.txt", path_key, false) == false)
-			{
-				std::cout << "Invalid key! [New arg]\n";
-				return -1;
-			}
-		}
+	bool key_exists  = exists_pk_class.exists_pk("directory.txt", path_key, false),
+	     path_exists = exists_pk_class.exists_pk("directory.txt", new_path, true);
+
+	// Checking the user path key is exists or not ---------------------
+	if(!key_exists && !path_exists){}
+
+	// User path key is invalid return -1 ------------------------------
+	else if(!key_exists)
+	{
+		std::cout << "Invalid key! [New arg]\n";
+		return -1;
 	}
 
 	// Reading directory file for terminate execution to same key ------
-	std::ifstream read_file_stream("directory.txt");
-	std::string line, path;
-	while(std::getline(read_file_stream, line))
-	{
-		size_t pos = line.find('=');
-		if(pos != std::string::npos)
-		{
-		    std::string found_key = line.substr(0, pos);
-
-		    // trim spaces
-		    found_key.erase(0, found_key.find_first_not_of(" "));
-		    found_key.erase(found_key.find_last_not_of(" ") + 1);
-
-		    if(found_key == path_key)
-		    {
-			// exact match found
-			size_t dash_pos = line.find('-'), equal_pos = line.find('=');
-			if(dash_pos != std::string::npos && equal_pos != std::string::npos)
-			{
-				std::string path_ = line.substr(equal_pos + 1, dash_pos - equal_pos - 1);
-				path_ = trim0_(path_);
-				if(path_ != new_path)
-				{
-					std::cout << path_key << " -> This key is not user path key OR same key exists in directory file [New arg]\n";
-					return -1;
-				}
-			}
-		    }
-		}
-	}
+	if(is_duplicate_key(path_key, new_path)) return -1;
 
 	// Checking whether a directory file contains a new_path or not ----
 	if(exists_pk_class.exists_pk("directory.txt", new_path, true))

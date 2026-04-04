@@ -1,7 +1,6 @@
 #include "./Version.hpp"
 
 #include <iostream>
-#include <string>
 
 int Version()
 {
