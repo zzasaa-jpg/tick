@@ -3,6 +3,8 @@
 #include "../../../Utility/RCFV_Utility/RCFV_Utility.hpp"
 #include "../../../Utility/Print_Timer_Utility/Print_Timer.hpp"
 
+#include <iostream>
+
 int Session(int argc, char* argv[])
 {
 	std::string base_path = "", error;
@@ -55,6 +57,6 @@ int Session(int argc, char* argv[])
 	//-----------------------------------------------------------
 
 	int time_1 = rcfv_utility.Read_content_from_vector<int>(base_path + "/t1.txt");
-	print_timer_utility.print_timer(time_now - time_1, "Session Time: ");
+	std::cout << "Session Time: " <<print_timer_utility.print_timer(time_now - time_1) << std::endl;
 	return 1;
 }

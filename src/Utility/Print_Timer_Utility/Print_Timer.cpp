@@ -7,7 +7,8 @@
 PRINT_TIMER_UTILITY_CLASS print_timer_utility;
 PRINT_TIMER_UTILITY_CLASS::PRINT_TIMER_UTILITY_CLASS(){};
 
-std::string PRINT_TIMER_UTILITY_CLASS::format_time_ostring_stream(long long elapsed_seconds)
+// Elapsed seconds convert into a formatted, human-readable time. -----------------------
+std::string PRINT_TIMER_UTILITY_CLASS::print_timer(long long elapsed_seconds)
 {
 	struct Unit { long long value; const char* label; };
 
@@ -33,15 +34,10 @@ std::string PRINT_TIMER_UTILITY_CLASS::format_time_ostring_stream(long long elap
 	int hours = elapsed_seconds / 3600, minutes = elapsed_seconds / 60;
 	elapsed_seconds %= 3600, elapsed_seconds %= 60;
 
-	auto pad = [](int x){return (x < 10 ? "0" : "") + std::to_string(x); };
+	auto pad = [](int x){ return (x < 10 ? "0" : "") + std::to_string(x); };
 
 	out << pad(hours) << ":"  << pad(minutes) << ":" << pad(elapsed_seconds);
+
 	return out.str();
 }
-
-void PRINT_TIMER_UTILITY_CLASS::print_timer(long long elapsed_seconds, const std::string& mes)
-{
-	std::cout << mes
-		  << format_time_ostring_stream(elapsed_seconds)
-		  << std::endl;
-}
+// --------------------------------------------------------------------------------------

@@ -57,6 +57,7 @@ void load_path_and_keys(const std::string& filename)
 }
 //---------------------------------------------------------
 
+// Checking path & key existence in directory file --------
 bool Exists_pk_class::exists_pk(const std::string& filename, std::string& targetPK, bool PK)
 {
 	// Last write time ------------------------------------------
@@ -80,3 +81,4 @@ bool Exists_pk_class::exists_pk(const std::string& filename, std::string& target
 		return key_cache.find(base_key) != key_cache.end();
 	}
 }
+// --------------------------------------------------------

@@ -38,12 +38,12 @@ void Write_TT::Write_total_time(int du_flag, const std::string& du_flag_path)
 	file_oprs.write_file(tt_txt_file_content, final_time);
 
 	// Elapsed seconds convert to readable format time ----------
-	format_time_string = print_timer_utility.format_time_ostring_stream(final_time);
+	format_time_string = print_timer_utility.print_timer(final_time);
 	file_oprs.write_file(format_time_txt_file_content, format_time_string);
 
 	// Print session and total timer of one program cycle -------
-	print_timer_utility.print_timer(t2_value - t1_value, "Session Time: ");
-	print_timer_utility.print_timer(final_time, "Total Time: ");
+	std::cout << "Session Time: " << print_timer_utility.print_timer(t2_value - t1_value) << std::endl;
+	std::cout << "Total Time: "   << print_timer_utility.print_timer(final_time) << std::endl;
 	//------------------------------------------------------------
 }
 //--------------------------------------------------------------------
