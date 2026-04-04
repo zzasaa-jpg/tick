@@ -35,9 +35,9 @@ tick
 
 ## Tool Commands
 
-| Command          | Description                           |
-| ---------------- | ------------------------------------- |
-|  cpp.exe         | Start or stop the timer               |
-|  cpp.exe status  | Show the current running timer status |
-|  cpp.exe clear   | Reset all stored time data            |
-|  cpp.exe help    | Display help information              |
+| Command              | Description                           |
+| -------------------- | ------------------------------------- |
+|  cpp.exe             | Start or stop the timer               |
+|  cpp.exe status      | Show the current running timer status |
+|  cpp.exe clear/reset | Reset all stored time data            |
+|  cpp.exe help        | Display help information              |
