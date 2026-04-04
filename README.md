@@ -51,7 +51,7 @@ So I built this tool to:
 ### ▶ Start / Stop Timer
 ```
 Default path mode: cpp.exe
-User path mode   : cpp.exe path
+User path mode   : cpp.exe <path>
 ```
 
 ---
